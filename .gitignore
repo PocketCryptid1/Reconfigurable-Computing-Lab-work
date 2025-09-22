@@ -1,0 +1,10 @@
+*
+!*.v
+!*.gitignore
+!*.qdf
+!*.htm
+!*.qpf
+!*.qsf
+!*.sdc
+!*.vhd
+!*_info
