@@ -32,8 +32,9 @@ architecture behavioral of segdecode is
 				when "1101" => sevenseg <= "0100001"; --D
 				when "1110" => sevenseg <= "0000110"; --E
 				when "1111" => sevenseg <= "0001110"; --F
+				when others => sevenseg <= "0000000"; --8
 			end case;
-			display <= sevenseg & point;
+			display <= point & sevenseg;
 		end process;
 end architecture behavioral;
 
@@ -42,10 +43,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-
 entity Stopwatch is
 	port(
-
 	--CLOCK
    MAX10_CLK1_50 : in std_logic; -- The main clock source that we will be using
 
@@ -65,7 +64,7 @@ end entity Stopwatch;
 architecture behavioral of Stopwatch is
 	-- CONSTANTS --
 	--clk is 50Mhz need 100 hz 
-	constant MAX_COUNT : integer :=500_000;
+	constant MAX_COUNT : integer := 500_000;
 
 	-- SIGNALS --
 	--values to send to seven segments
@@ -74,6 +73,14 @@ architecture behavioral of Stopwatch is
 	signal mins			: unsigned(5 downto 0);
 	-- for use instead of a clock divider
 	signal count 		: unsigned(18 downto 0);
+	
+	-- intermediate signals for the segment displays
+	signal bcd_hex0: std_logic_vector(3 downto 0);
+	signal bcd_hex1: std_logic_vector(3 downto 0);
+	signal bcd_hex2: std_logic_vector(3 downto 0);
+	signal bcd_hex3: std_logic_vector(3 downto 0);
+	signal bcd_hex4: std_logic_vector(3 downto 0);
+	signal bcd_hex5: std_logic_vector(3 downto 0);
 
 	component segdecode
 		port (
@@ -128,41 +135,49 @@ begin
 			end if;
 		end if;
 	end process;
+	
+	bcd_hex0 <= std_logic_vector(resize(hundreths mod 10, 4));
+	bcd_hex1 <= std_logic_vector(resize(hundreths / 10, 4));
+	bcd_hex2 <= std_logic_vector(resize(secs mod 10, 4));
+	bcd_hex3 <= std_logic_vector(resize(secs / 10, 4));
+	bcd_hex4 <= std_logic_vector(resize(mins mod 10, 4));
+	bcd_hex5 <= std_logic_vector(resize(mins / 10, 4));
+	
 		-- send values to seven segments
 	S0: segdecode
 		port map(
-			point => '0',
-			bcd => std_logic_vector(hundreths mod 10)(3 downto 0), 
+			point => '1',
+			bcd => bcd_hex0, 
 			display => HEX0
 		);
 	S1: segdecode
 		port map(
-			point => '0',
-			bcd => std_logic_vector(hundreths / 10)(3 downto 0), 
+			point => '1',
+			bcd => bcd_hex1, 
 			display => HEX1
 		);
 	S2: segdecode
 		port map(
-			point => '1',
-			bcd => std_logic_vector(secs mod 10)(3 downto 0), 
+			point => '0',
+			bcd => bcd_hex2, 
 			display => HEX2
 		);
 	S3: segdecode
 		port map(
-			point => '0',
-			bcd => std_logic_vector(secs / 10)(3 downto 0), 
+			point => '1',
+			bcd => bcd_hex3, 
 			display => HEX3
 		);
 	S4: segdecode
 		port map(
-			point => '1',
-			bcd => std_logic_vector(mins mod 10)(3 downto 0), 
+			point => '0',
+			bcd => bcd_hex4, 
 			display => HEX4
 		);
 	S5: segdecode
 		port map(
-			point => '0',
-			bcd => std_logic_vector(mins / 10)(3 downto 0), 
+			point => '1',
+			bcd => bcd_hex5, 
 			display => HEX5
 		);
 end architecture behavioral;
