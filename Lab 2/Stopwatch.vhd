@@ -72,7 +72,7 @@ architecture behavioral of Stopwatch is
 	signal secs 		: unsigned(5 downto 0);
 	signal mins			: unsigned(5 downto 0);
 	-- for use instead of a clock divider
-	signal count 		: unsigned(18 downto 0);
+	signal count 		: integer;
 	
 	-- intermediate signals for the segment displays
 	signal bcd_hex0: std_logic_vector(3 downto 0);
@@ -89,7 +89,6 @@ architecture behavioral of Stopwatch is
 			display: 	out std_logic_vector(7 downto 0)
 		);
 	end component segdecode;
-
 begin
 	process (MAX10_CLK1_50) begin
 		if rising_edge(MAX10_CLK1_50) then

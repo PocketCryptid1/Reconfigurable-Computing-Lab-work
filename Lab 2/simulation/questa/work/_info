@@ -1,0 +1,231 @@
+m255
+K4
+z2
+Z0 !s99 nomlopt
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+!s11e MIXED_VERSIONS
+!s11f vlog 2021.2 2021.04, Apr 14 2021
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z1 d/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Stopwatch/simulation/questa
+T_opt
+!s110 1758594021
+Vf]?GLfd;^oN493GU3``LW0
+04 9 10 work segdecode behavioral 2
+Z2 04 9 10 work stopwatch behavioral 2
+Z3 04 12 10 work stopwatch_tb behavioral 1
+=1-000ae431a4f1-68d203e5-5659e-9806
+!s124 OEM10U16 
+Z4 o-quiet -auto_acc_if_foreign -work work
+Z5 tCvgOpt 0
+n@_opt
+Z6 OL;O;2021.2;73
+R1
+T_opt1
+!s110 1758598477
+VV98JTbB02@?eMH8ET1Cjo2
+R2
+R3
+=1-000ae431a4f1-68d2154d-bd03c-1f66
+!s124 OEM10U15 
+R4
+R5
+n@_opt1
+R6
+T_opt2
+!s110 1758595056
+Vj3hPHD4GJCFki_[hS1QOG0
+R3
+=1-000ae431a4f1-68d207f0-189b1-a24c
+!s124 OEM10U8 
+R4
+R5
+n@_opt2
+R6
+R1
+vhard_block
+Z7 !s110 1758594975
+!i10b 1
+!s100 7]O2>_<DXBz4RZ`4I=ggD2
+I:LoBgI9[<aVzZJ8?eNX]@0
+Z8 d/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab 2/simulation/questa
+Z9 w1758594572
+Z10 8/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab 2/simulation/questa/Stopwatch.vo
+Z11 F/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab 2/simulation/questa/Stopwatch.vo
+!i122 28
+L0 8145 45
+Z12 VDg1SIo80bB@j0V0VzS_@n1
+Z13 OL;L;2021.2;73
+r1
+!s85 0
+31
+Z14 !s108 1758594975.000000
+Z15 !s107 /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab 2/simulation/questa/Stopwatch.vo|
+Z16 !s90 -reportprogress|300|-work|work|/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab 2/simulation/questa/Stopwatch.vo|
+!i113 0
+Z17 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R5
+Esegdecode
+Z18 w1758598382
+Z19 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z20 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z21 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 31
+R8
+Z22 8/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab 2/Stopwatch.vhd
+Z23 F/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab 2/Stopwatch.vhd
+l0
+L6 1
+V]kXE@>XP1=Q9m3l[Cinhn0
+!s100 zoT9^_zE[TVZLda9e0oGZ2
+Z24 OL;C;2021.2;73
+32
+Z25 !s110 1758598468
+!i10b 1
+Z26 !s108 1758598468.000000
+Z27 !s90 -reportprogress|300|-work|work|/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab 2/Stopwatch.vhd|/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab 2/stopwatch_tb.vhd|
+Z28 !s107 /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab 2/stopwatch_tb.vhd|/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab 2/Stopwatch.vhd|
+!i113 0
+Z29 o-work work
+Z30 tExplicit 1 CvgOpt 0
+Abehavioral
+R19
+R20
+R21
+DEx4 work 9 segdecode 0 22 ]kXE@>XP1=Q9m3l[Cinhn0
+!i122 31
+l16
+L14 26
+V]0DjO6_h>:7S`E7W4U@z]0
+!s100 TD0_GjXb[DO=gC]YSC@Kn1
+R24
+32
+R25
+!i10b 1
+R26
+R27
+R28
+!i113 0
+R29
+R30
+vStopwatch
+R7
+!i10b 1
+!s100 cIHXFLJMfO6cz]1cJHX`K2
+Ile]_j>1iF8J?V[omWG9hV2
+R8
+R9
+R10
+R11
+!i122 28
+L0 32 8112
+R12
+R13
+r1
+!s85 0
+31
+R14
+R15
+R16
+!i113 0
+R17
+R5
+n@stopwatch
+Estopwatch
+R18
+R19
+R20
+R21
+!i122 31
+R8
+R22
+R23
+l0
+L46 1
+V>^UD5jYaO[Ke:CDnbW_Qd0
+!s100 CB<V2i5kTHJPooG;^NkP:0
+R24
+32
+R25
+!i10b 1
+R26
+R27
+R28
+!i113 0
+R29
+R30
+Abehavioral
+R19
+R20
+R21
+DEx4 work 9 stopwatch 0 22 >^UD5jYaO[Ke:CDnbW_Qd0
+!i122 31
+l92
+L64 118
+VRfMYQC_FhDI768ja8Q;];0
+!s100 VdN1^O<7CC6RTO[@a>ecz2
+R24
+32
+R25
+!i10b 1
+R26
+R27
+R28
+!i113 0
+R29
+R30
+Estopwatch_tb
+Z31 w1758596858
+R19
+R20
+R21
+!i122 31
+R8
+Z32 8/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab 2/stopwatch_tb.vhd
+Z33 F/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab 2/stopwatch_tb.vhd
+l0
+L5 1
+ViT7CXAcKX<z^>4BIJKPe63
+!s100 bgl^Yg^fozMJSzl]WiO2k1
+R24
+32
+R25
+!i10b 1
+R26
+R27
+R28
+!i113 0
+R29
+R30
+Abehavioral
+R19
+R20
+R21
+DEx4 work 12 stopwatch_tb 0 22 iT7CXAcKX<z^>4BIJKPe63
+!i122 31
+l39
+L8 69
+V13fFZ@@cRNBA];0gaji?Z0
+!s100 D32n;0h@j<_M<fR@hCo=d2
+R24
+32
+R25
+!i10b 1
+R26
+R27
+R28
+!i113 0
+R29
+R30
