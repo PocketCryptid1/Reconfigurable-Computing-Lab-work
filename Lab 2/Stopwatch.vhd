@@ -129,19 +129,18 @@ begin
 							--end hundreths
 						when others => --invalid key state, do nothing
 					end case;
+						bcd_hex0 <= std_logic_vector(resize(hundreths mod 10, 4));
+						bcd_hex1 <= std_logic_vector(resize(hundreths / 10, 4));
+						bcd_hex2 <= std_logic_vector(resize(secs mod 10, 4));
+						bcd_hex3 <= std_logic_vector(resize(secs / 10, 4));
+						bcd_hex4 <= std_logic_vector(resize(mins mod 10, 4));
+						bcd_hex5 <= std_logic_vector(resize(mins / 10, 4));
 			-- end active clock tick				
 			else
 				count <= count + 1;
 			end if;
 		end if;
 	end process;
-	
-	bcd_hex0 <= std_logic_vector(resize(hundreths mod 10, 4));
-	bcd_hex1 <= std_logic_vector(resize(hundreths / 10, 4));
-	bcd_hex2 <= std_logic_vector(resize(secs mod 10, 4));
-	bcd_hex3 <= std_logic_vector(resize(secs / 10, 4));
-	bcd_hex4 <= std_logic_vector(resize(mins mod 10, 4));
-	bcd_hex5 <= std_logic_vector(resize(mins / 10, 4));
 	
 		-- send values to seven segments
 	S0: segdecode

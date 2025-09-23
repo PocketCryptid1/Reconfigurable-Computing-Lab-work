@@ -1,4 +1,5 @@
 *
+
 !*.v
 !*.gitignore
 !*.qdf
@@ -7,4 +8,7 @@
 !*.qsf
 !*.sdc
 !*.vhd
-!*_info
+!*.md
+!*/simulation/**
+
+!*/
