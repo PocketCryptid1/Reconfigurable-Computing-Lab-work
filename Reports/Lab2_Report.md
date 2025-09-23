@@ -22,9 +22,13 @@ The procedures for this lab are as follows\
 
 ### Issues and Errors
 
+we continued to have issues with questa and the waveform not updating in the waveform viewer.
+
 ### Stumbles
 
 ## Results
+
+*Refer to Figure 1 and 2 for details of implementation* we first used an internal counter to convert the 50 MHz clock to count 100ths of a second, we then created a module that converts a binary number into a seven segment output.
 
 ## Figures
 
