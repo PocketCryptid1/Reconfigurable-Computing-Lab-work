@@ -94,7 +94,7 @@ begin
 		if rising_edge(MAX10_CLK1_50) then
 			-- only on 100hz clock
 			if count = (MAX_COUNT - 1) then
-				count <= (others => '0');
+				count <= 0;
 					case KEY is
 						when "00" => --hold
 						when "01" => --reset
