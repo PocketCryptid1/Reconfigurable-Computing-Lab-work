@@ -10,5 +10,9 @@
 !*.vhd
 !*.md
 !*/simulation/**
+!*.png
+!*.jpg
+!*.jpeg
+!*.svg
 
 !*/
