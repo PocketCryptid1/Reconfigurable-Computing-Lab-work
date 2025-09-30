@@ -228,6 +228,8 @@ end architecture behavioral;
 ```
 
 The following image shows the simulation of the design through Questa.
+
+
 ![Questa Simulation](SIM.png "Questa Simulation")
 
 ## Conclusion
