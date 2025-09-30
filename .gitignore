@@ -10,6 +10,7 @@
 !*.vhd
 !*.md
 !*/simulation/**
+!*/Reports/**
 !*.png
 !*.jpg
 !*.jpeg
