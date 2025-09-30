@@ -30,12 +30,12 @@ begin
 			
 		elsif rising_edge(clk) and enabled = '0' then
 			-- shift the bits to the right
-			feedback <= lfsr_reg(7) xor lfsr_reg(5) xor lfsr_reg(4) xor lfsr_reg(3);
 			lfsr_reg <= feedback & lfsr_reg(7 downto 1);
 		end if;
 	end process;
 	
 	-- [SIGNAL CONNECTIONS] --
+	feedback <= lfsr_reg(7) xor lfsr_reg(5) xor lfsr_reg(4) xor lfsr_reg(3);
 	result <= lfsr_reg;
 
 end architecture behavioral;

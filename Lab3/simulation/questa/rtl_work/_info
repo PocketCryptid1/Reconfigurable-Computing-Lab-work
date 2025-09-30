@@ -1,0 +1,194 @@
+m255
+K4
+z2
+!s99 nomlopt
+!s11e vcom 2021.2 2021.04, Apr 14 2021
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab3/simulation/questa
+T_opt
+Z1 !s110 1759194324
+V2OQ=DM@7:lXZ[>m?bJhLX0
+04 7 10 work lfsr_tb behavioral 1
+=1-000ae431a4f1-68db2cd4-73a1f-5a77
+!s124 OEM10U2 
+o-quiet -auto_acc_if_foreign -work work -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L fiftyfivenm -L rtl_work -L work +acc
+tCvgOpt 0
+n@_opt
+OL;O;2021.2;73
+Elfsr_8bit
+Z2 w1759194308
+Z3 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z4 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z5 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 4
+R0
+Z6 8/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab3/lfsr_8bit.vhd
+Z7 F/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab3/lfsr_8bit.vhd
+l0
+L5 1
+V<Y=9JYo5>le>MX0SRE2jA2
+!s100 ^WUBahDN1;ENgdgUTR]342
+Z8 OL;C;2021.2;73
+31
+R1
+!i10b 1
+Z9 !s108 1759194324.000000
+Z10 !s90 -reportprogress|300|-93|-work|work|/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab3/lfsr_8bit.vhd|
+Z11 !s107 /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab3/lfsr_8bit.vhd|
+!i113 0
+Z12 o-93 -work work
+Z13 tExplicit 1 CvgOpt 0
+Abehavioral
+R3
+R4
+R5
+DEx4 work 9 lfsr_8bit 0 22 <Y=9JYo5>le>MX0SRE2jA2
+!i122 4
+l23
+L18 24
+VSZ2U0@mdBNUH_T_e8GZ6N2
+!s100 <k]@2gG_Q[Ch4?ddg5H]01
+R8
+31
+R1
+!i10b 1
+R9
+R10
+R11
+!i113 0
+R12
+R13
+Elfsr_tb
+Z14 w1759180704
+R3
+R4
+R5
+!i122 3
+R0
+Z15 8/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab3/LFSR_tb.vhd
+Z16 F/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab3/LFSR_tb.vhd
+l0
+L5 1
+Vj[FeZ58e68=6a85PfAFZz3
+!s100 nFO5RS7B4]T:Cj>Y@J0DG3
+R8
+31
+R1
+!i10b 1
+R9
+Z17 !s90 -reportprogress|300|-93|-work|work|/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab3/LFSR_tb.vhd|
+Z18 !s107 /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab3/LFSR_tb.vhd|
+!i113 0
+R12
+R13
+Abehavioral
+R3
+R4
+R5
+DEx4 work 7 lfsr_tb 0 22 j[FeZ58e68=6a85PfAFZz3
+!i122 3
+l28
+L8 47
+V^`H[XN8@dDmcnL6eN:nKf1
+!s100 C0H;LR>9bY>@25feihEnY1
+R8
+31
+R1
+!i10b 1
+R9
+R17
+R18
+!i113 0
+R12
+R13
+Erng
+Z19 w1759178627
+R3
+R4
+R5
+!i122 1
+R0
+Z20 8/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab3/rng.vhd
+Z21 F/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab3/rng.vhd
+l0
+L5 1
+VNzQN@7Jzif_6V_k2TX8H^0
+!s100 nm;cNK0g;2kij4j]dQ?[B2
+R8
+31
+Z22 !s110 1759194323
+!i10b 1
+Z23 !s108 1759194323.000000
+Z24 !s90 -reportprogress|300|-93|-work|work|/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab3/rng.vhd|
+Z25 !s107 /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab3/rng.vhd|
+!i113 0
+R12
+R13
+Abehavioral
+R3
+R4
+R5
+DEx4 work 3 rng 0 22 NzQN@7Jzif_6V_k2TX8H^0
+!i122 1
+l46
+L17 77
+V8jI`TaNJGJZ2Pl^5@Qb@T0
+!s100 G:i<O7OX44O>V;_Xd?a8E0
+R8
+31
+R22
+!i10b 1
+R23
+R24
+R25
+!i113 0
+R12
+R13
+Eseg
+Z26 w1759176813
+R3
+R4
+R5
+!i122 0
+R0
+Z27 8/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab3/seg.vhd
+Z28 F/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab3/seg.vhd
+l0
+L5 1
+VeLPaAV[?12U2[mlnCjORY0
+!s100 Lk68lMC>mXG2zAQ=dQjkm3
+R8
+31
+R22
+!i10b 1
+R23
+Z29 !s90 -reportprogress|300|-93|-work|work|/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab3/seg.vhd|
+Z30 !s107 /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab3/seg.vhd|
+!i113 0
+R12
+R13
+Abehavioral
+R3
+R4
+R5
+DEx4 work 3 seg 0 22 eLPaAV[?12U2[mlnCjORY0
+!i122 0
+l16
+L13 28
+VNg@20JF3JL=GKPD`EKgGX3
+!s100 >HSD0UR]`X]lB4jjS1L;]2
+R8
+31
+R22
+!i10b 1
+R23
+R29
+R30
+!i113 0
+R12
+R13
