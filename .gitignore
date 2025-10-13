@@ -9,8 +9,13 @@
 !*.sdc
 !*.vhd
 !*.md
+
+!Makefile
+
 !*/simulation/**
 !*/Reports/**
+!*/src/**
+
 !*.png
 !*.jpg
 !*.jpeg
