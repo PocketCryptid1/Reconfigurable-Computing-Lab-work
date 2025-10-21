@@ -15,6 +15,10 @@ $(TARGET): $(SRCS)
 run: $(TARGET)
 	./$(TARGET) input.txt output.txt
 
+# Runs the program statistics
+stats: $(TARGET)
+	./$(TARGET) -s stats.txt input.txt
+
 # Clean up build files
 clean:
 	rm -f $(TARGET) *.o

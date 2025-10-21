@@ -6,7 +6,7 @@
 
 #include "lib.h"
 
-circuit::circuit(){
+circuit::circuit(double cooling_rate) : cooling_rate(cooling_rate) {
     grid_x = 0;
     grid_y = 0;
     num_nodes = 0;
@@ -102,11 +102,11 @@ double circuit::distance(int n1, int n2){
     return sqrt(abs(x1 - x2)*abs(x1 - x2) + abs(y1 - y2)*abs(y1 - y2));
 }
 
-void circuit::anneal(){
+int circuit::anneal(){
     //initial parameters
-    int heat = 50000;
-    double cooling_rate = 0.998;
+    double heat = 50000;
     double current_score = score();
+    int count = 0;
 
     //initialize random generators
     random_device rd;
@@ -118,6 +118,7 @@ void circuit::anneal(){
 
     while(heat > 1){
         //select a random node to move
+        count++;
         int node = dis_node(gen);
         int old_x = placements[node].first;
         int old_y = placements[node].second;
@@ -148,8 +149,10 @@ void circuit::anneal(){
         }
 
         //cool down
-        heat *= cooling_rate;
+        heat *= this->cooling_rate;
     }
+
+    return count;
 };
 
 void circuit::output(char *filename){
@@ -169,4 +172,14 @@ void circuit::output(char *filename){
     }
 
     outfile.close();
+}
+
+double circuit::total_distance() {
+    double total_distance = 0;
+
+    for (int i = 0; i < edges.size(); ++i) {
+        total_distance += distance(edges[i].first, edges[i].second);
+    }
+
+    return total_distance;
 }
