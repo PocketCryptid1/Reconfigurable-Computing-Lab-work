@@ -42,7 +42,7 @@ begin
 	
 	end process;
 	
-	process (d_in)
+	process (current_state, d_in)
 	begin
 		case (current_state) is
 			when IDLE =>

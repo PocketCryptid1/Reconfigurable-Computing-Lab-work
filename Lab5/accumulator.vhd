@@ -43,9 +43,11 @@ architecture behavioral of accumulator is
 	signal last_add_value : std_logic := '0';
 	signal last_rst_value : std_logic := '0';
 	
+	signal key_inverted : std_logic_vector(1 downto 0);
+	
 	signal add_db 	: std_logic;
 	signal rst_db 	: std_logic;
-	signal count 	: unsigned(23 downto 0);
+	signal count 	: unsigned(23 downto 0) := (others => '0');
 	
 	signal current_state : std_logic_vector(1 downto 0) := "00";
 	signal next_state : std_logic_vector(1 downto 0) := "00";
@@ -64,12 +66,13 @@ begin
 	seg4_impl : seg port map(point => '0',	count => count(19 downto 16), output => HEX4);
 	seg5_impl : seg port map(point => '0',	count => count(23 downto 20), output => HEX5);
 	
-	add_db_impl : debounce port map (clk => ADC_CLK_10, d_in => not KEY(0), d_out => add_db);
-	rst_db_impl : debounce port map (clk => ADC_CLK_10, d_in => not KEY(1), d_out => rst_db);
+	add_db_impl : debounce port map (clk => ADC_CLK_10, d_in => key_inverted(0), d_out => add_db);
+	rst_db_impl : debounce port map (clk => ADC_CLK_10, d_in => key_inverted(1), d_out => rst_db);
 
 	-- [DIRECT BEHAVIOR] --
 	-- Directly assign the values of the switches to the LEDs
 	LEDR <= SW;
+	key_inverted <= not KEY(1) & not KEY(0);
 	
 	-- [PROCESSES] --
 	process (ADC_CLK_10)
@@ -85,7 +88,7 @@ begin
 	
 	end process;
 	
-	process (rst_db, add_db)
+	process (current_state, rst_db, add_db)
 	begin
 		case (current_state) is
 			when IDLE =>

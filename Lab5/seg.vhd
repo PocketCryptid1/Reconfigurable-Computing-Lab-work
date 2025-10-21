@@ -11,9 +11,12 @@ entity seg is
 end entity seg;
 
 architecture behavioral of seg is
-	signal segvalue : std_logic_vector(6 downto 0);
+	signal segvalue : std_logic_vector(6 downto 0) := "1000000";
 	
 begin
+
+	output <= (not point) & segvalue;
+
 	process (count) begin
 		case(count) is
 			when to_unsigned(0, 4) => 	segvalue <= "1000000"; -- 0
@@ -34,7 +37,5 @@ begin
 			when to_unsigned(15, 4) => segvalue <= "0001110"; -- F
 			when others => segvalue <= "1000000"; -- 0
 		end case;
-		
-		output <= (not point) & segvalue;
 	end process;
 end architecture behavioral;

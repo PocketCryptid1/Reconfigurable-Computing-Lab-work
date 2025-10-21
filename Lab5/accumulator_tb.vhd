@@ -9,7 +9,7 @@ architecture behavioral of accumulator_tb is
     -- instantiate accumulator
     component accumulator
         port(
-            ADC_CLK_10 : in std_logic;
+            ADC_CLK_10  : in std_logic;
             KEY         : in std_logic_vector(1 downto 0);
             SW          : in unsigned(9 downto 0);
             HEX0        : out std_logic_vector(7 downto 0);
@@ -21,7 +21,8 @@ architecture behavioral of accumulator_tb is
             LEDR        : out unsigned(9 downto 0)
         );
     end component accumulator;
-    signal ADC_CLK_10 : std_logic := '0';
+	 
+    signal ADC_CLK_10  : std_logic := '0';
     signal KEY         : std_logic_vector(1 downto 0) := (others => '1');
     signal SW          : unsigned(9 downto 0) := (others => '0');
     signal HEX0        : std_logic_vector(7 downto 0);
@@ -64,6 +65,14 @@ begin
         SW  <= (others => '0');
         wait for 100 ns;
 
+		  -- first, reset
+        wait for 40 ns;
+        KEY(1) <= '0'; -- press RST
+        wait for 60 ns;
+        KEY(1) <= '1';
+        wait for 200 ns;
+        report "After reset, LEDR = " & integer'image(to_integer(LEDR));
+		  
         -- Add 3
         SW <= to_unsigned(3, 10);
         wait for 40 ns;

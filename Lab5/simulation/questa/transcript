@@ -1,0 +1,178 @@
+# //  Questa Intel Starter FPGA Edition-64
+# //  Version 2021.2 linux_x86_64 Apr 14 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# do accumulator_run_msim_rtl_vhdl.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Questa Intel Starter FPGA Edition-64 vmap 2021.2 Lib Mapping Utility 2021.04 Apr 14 2021
+# vmap work rtl_work 
+# Modifying modelsim.ini
+# 
+# vcom -93 -work work {/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd}
+# Questa Intel Starter FPGA Edition-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 20:52:05 on Oct 20,2025
+# vcom -reportprogress 300 -93 -work work /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity seg
+# -- Compiling architecture behavioral of seg
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(22): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(23): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(24): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(25): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(26): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(27): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(28): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(29): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(30): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(31): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(32): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(33): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(34): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(35): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(36): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(37): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# End time: 20:52:05 on Oct 20,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 16
+# vcom -93 -work work {/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/accumulator.vhd}
+# Questa Intel Starter FPGA Edition-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 20:52:05 on Oct 20,2025
+# vcom -reportprogress 300 -93 -work work /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/accumulator.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity accumulator
+# -- Compiling architecture behavioral of accumulator
+# End time: 20:52:05 on Oct 20,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/debounce.vhd}
+# Questa Intel Starter FPGA Edition-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 20:52:06 on Oct 20,2025
+# vcom -reportprogress 300 -93 -work work /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/debounce.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity debounce
+# -- Compiling architecture behavioral of debounce
+# End time: 20:52:06 on Oct 20,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vcom -93 -work work {/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/accumulator.vhd}
+# Questa Intel Starter FPGA Edition-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 20:52:06 on Oct 20,2025
+# vcom -reportprogress 300 -93 -work work /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/accumulator.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity accumulator
+# -- Compiling architecture behavioral of accumulator
+# End time: 20:52:06 on Oct 20,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/accumulator_tb.vhd}
+# Questa Intel Starter FPGA Edition-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 20:52:06 on Oct 20,2025
+# vcom -reportprogress 300 -93 -work work /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/accumulator_tb.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity accumulator_tb
+# -- Compiling architecture behavioral of accumulator_tb
+# End time: 20:52:06 on Oct 20,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd}
+# Questa Intel Starter FPGA Edition-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 20:52:06 on Oct 20,2025
+# vcom -reportprogress 300 -93 -work work /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity seg
+# -- Compiling architecture behavioral of seg
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(22): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(23): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(24): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(25): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(26): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(27): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(28): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(29): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(30): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(31): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(32): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(33): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(34): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(35): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(36): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# ** Warning: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd(37): (vcom-1937) Choice in CASE statement alternative must be locally static.
+# End time: 20:52:06 on Oct 20,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 16
+# vcom -93 -work work {/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/debounce.vhd}
+# Questa Intel Starter FPGA Edition-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 20:52:06 on Oct 20,2025
+# vcom -reportprogress 300 -93 -work work /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/debounce.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity debounce
+# -- Compiling architecture behavioral of debounce
+# End time: 20:52:06 on Oct 20,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L fiftyfivenm -L rtl_work -L work -voptargs="+acc"  accumulator_tb
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L fiftyfivenm -L rtl_work -L work -voptargs=""+acc"" accumulator_tb 
+# Start time: 20:52:06 on Oct 20,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Note: (vopt-143) Recognized 1 FSM in architecture body "accumulator(behavioral)".
+# ** Note: (vopt-143) Recognized 1 FSM in architecture body "debounce(behavioral)".
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.accumulator_tb(behavioral)#1
+# Loading work.accumulator(behavioral)#1
+# Loading work.seg(behavioral)#1
+# Loading work.debounce(behavioral)#1
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run 10 us
+# ** Note: After reset, LEDR = 0
+#    Time: 400 ns  Iteration: 0  Instance: /accumulator_tb
+# ** Note: After adding 3, LEDR = 3
+#    Time: 700 ns  Iteration: 0  Instance: /accumulator_tb
+# ** Note: After adding 5, LEDR = 5
+#    Time: 1 us  Iteration: 0  Instance: /accumulator_tb
+# ** Note: After adding 512, LEDR = 512
+#    Time: 1300 ns  Iteration: 0  Instance: /accumulator_tb
+# ** Note: After reset, LEDR = 512
+#    Time: 1600 ns  Iteration: 0  Instance: /accumulator_tb
+# ** Failure: End of simulation
+#    Time: 1800 ns  Iteration: 0  Process: /accumulator_tb/stim_proc File: /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/accumulator_tb.vhd
+# Break in Process stim_proc at /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/accumulator_tb.vhd line 113
+# End time: 20:52:58 on Oct 20,2025, Elapsed time: 0:00:52
+# Errors: 1, Warnings: 0
