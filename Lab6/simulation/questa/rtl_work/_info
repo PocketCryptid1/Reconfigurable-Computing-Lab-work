@@ -1,0 +1,194 @@
+m255
+K4
+z2
+!s99 nomlopt
+!s11e vcom 2021.2 2021.04, Apr 14 2021
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/simulation/questa
+T_opt
+Z1 !s110 1761015126
+VM@b4MXWfVakXAGDO1=D`]0
+04 14 10 work accumulator_tb behavioral 1
+=1-000ae431a4f1-68f6f556-9ba94-9a17
+!s124 OEM10U10 
+o-quiet -auto_acc_if_foreign -work work -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L fiftyfivenm -L rtl_work -L work +acc
+tCvgOpt 0
+n@_opt
+OL;O;2021.2;73
+Eaccumulator
+Z2 w1761014892
+Z3 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z4 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z5 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 3
+R0
+Z6 8/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/accumulator.vhd
+Z7 F/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/accumulator.vhd
+l0
+L5 1
+V:49:<2U4]3zQ244n2hM1L0
+!s100 GB26OTBXnEa4i_j35nSln3
+Z8 OL;C;2021.2;73
+31
+R1
+!i10b 1
+Z9 !s108 1761015126.000000
+Z10 !s90 -reportprogress|300|-93|-work|work|/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/accumulator.vhd|
+Z11 !s107 /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/accumulator.vhd|
+!i113 0
+Z12 o-93 -work work
+Z13 tExplicit 1 CvgOpt 0
+Abehavioral
+R3
+R4
+R5
+DEx4 work 11 accumulator 0 22 :49:<2U4]3zQ244n2hM1L0
+!i122 3
+l60
+L24 91
+V2^mNOA>XN3fKVFKKj]=Tg2
+!s100 Fcm?e[Y9odmUXn;Ra?75P0
+R8
+31
+R1
+!i10b 1
+R9
+R10
+R11
+!i113 0
+R12
+R13
+Eaccumulator_tb
+Z14 w1761015023
+R3
+R4
+R5
+!i122 4
+R0
+Z15 8/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/accumulator_tb.vhd
+Z16 F/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/accumulator_tb.vhd
+l0
+L5 1
+V7_^fNP9c`Z:U5n]ZL:l>b3
+!s100 o5]3XQ0CD^n<YmD6jPJL_1
+R8
+31
+R1
+!i10b 1
+R9
+Z17 !s90 -reportprogress|300|-93|-work|work|/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/accumulator_tb.vhd|
+Z18 !s107 /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/accumulator_tb.vhd|
+!i113 0
+R12
+R13
+Abehavioral
+R3
+R4
+R5
+DEx4 work 14 accumulator_tb 0 22 7_^fNP9c`Z:U5n]ZL:l>b3
+!i122 4
+l38
+L8 109
+VYKfS4h1[:nI2PbN]]An?A2
+!s100 g3R^LjQQP^CV55L0CT;RS2
+R8
+31
+R1
+!i10b 1
+R9
+R17
+R18
+!i113 0
+R12
+R13
+Edebounce
+Z19 w1761014562
+R3
+R4
+R5
+!i122 6
+R0
+Z20 8/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/debounce.vhd
+Z21 F/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/debounce.vhd
+l0
+L5 1
+VKAmUleTi?YJLn4o:B6A`E3
+!s100 Xgh0`PIf0LIeDTd<Kc3^k3
+R8
+31
+R1
+!i10b 1
+R9
+Z22 !s90 -reportprogress|300|-93|-work|work|/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/debounce.vhd|
+Z23 !s107 /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/debounce.vhd|
+!i113 0
+R12
+R13
+Abehavioral
+R3
+R4
+R5
+DEx4 work 8 debounce 0 22 KAmUleTi?YJLn4o:B6A`E3
+!i122 6
+l27
+L16 63
+VIf^dAo_`MOf?UAYf`j1]n2
+!s100 aC<>OebdJ7KR8L>ESKoI:0
+R8
+31
+R1
+!i10b 1
+R9
+R22
+R23
+!i113 0
+R12
+R13
+Eseg
+Z24 w1761015116
+R3
+R4
+R5
+!i122 5
+R0
+Z25 8/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd
+Z26 F/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd
+l0
+L5 1
+VKLERVWG`lcjgehE<WUQ300
+!s100 ;RNncE>mXSBlb?2io^IN11
+R8
+31
+R1
+!i10b 1
+R9
+Z27 !s90 -reportprogress|300|-93|-work|work|/home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd|
+Z28 !s107 /home/kylet/Documents/School/ActiveCode/Reconfigure-ECE5730/Reconfigurable-Computing-Lab-work/Lab5/seg.vhd|
+!i113 0
+R12
+R13
+Abehavioral
+R3
+R4
+R5
+DEx4 work 3 seg 0 22 KLERVWG`lcjgehE<WUQ300
+!i122 5
+l16
+L13 29
+V4MWh;]aSiSdYOKCS0@eao2
+!s100 T^o=Z5TIcQmiSozVKBbWz3
+R8
+31
+R1
+!i10b 1
+R9
+R27
+R28
+!i113 0
+R12
+R13

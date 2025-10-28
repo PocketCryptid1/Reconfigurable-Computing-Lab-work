@@ -1,0 +1,6 @@
+
+State Machine - |accumulator|a_state
+Name a_state.A_HOLD a_state.A_PUSH a_state.A_IDLE 
+a_state.A_IDLE 0 0 0 
+a_state.A_PUSH 0 1 1 
+a_state.A_HOLD 1 0 1 

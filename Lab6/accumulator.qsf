@@ -4,8 +4,8 @@
 
 set_global_assignment -name FAMILY "MAX 10 FPGA"
 set_global_assignment -name DEVICE 10M50DAF484C7G
-set_global_assignment -name TOP_LEVEL_ENTITY seg
-set_global_assignment -name ORIGINAL_QUARTUS_VERSION "16.0.0"
+set_global_assignment -name TOP_LEVEL_ENTITY accumulator
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 16.0.0
 set_global_assignment -name LAST_QUARTUS_VERSION "24.1std.0 Lite Edition"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "09:49:07 OCTOBER 20,2025"
 set_global_assignment -name DEVICE_FILTER_PACKAGE FBGA
@@ -114,10 +114,6 @@ set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
-set_global_assignment -name VHDL_FILE seg.vhd
-set_global_assignment -name VHDL_FILE accumulator.vhd
-set_global_assignment -name SDC_FILE accumulator.sdc
-set_global_assignment -name VHDL_FILE debounce.vhd
 set_global_assignment -name EDA_SIMULATION_TOOL "Questa Intel FPGA (Verilog)"
 set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
@@ -127,11 +123,18 @@ set_global_assignment -name EDA_TEST_BENCH_NAME accumulator_tb -section_id eda_s
 set_global_assignment -name EDA_DESIGN_INSTANCE_NAME accumulator -section_id accumulator_tb
 set_global_assignment -name EDA_TEST_BENCH_RUN_SIM_FOR "10 us" -section_id accumulator_tb
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME accumulator_tb -section_id accumulator_tb
-set_global_assignment -name VHDL_FILE accumulator_tb.vhd
 set_global_assignment -name EDA_TEST_BENCH_FILE accumulator.vhd -section_id accumulator_tb
 set_global_assignment -name EDA_TEST_BENCH_FILE accumulator_tb.vhd -section_id accumulator_tb
 set_global_assignment -name EDA_TEST_BENCH_FILE seg.vhd -section_id accumulator_tb
 set_global_assignment -name EDA_TEST_BENCH_FILE debounce.vhd -section_id accumulator_tb
+set_global_assignment -name VHDL_FILE seg.vhd
+set_global_assignment -name VHDL_FILE accumulator.vhd
+set_global_assignment -name SDC_FILE accumulator.sdc
+set_global_assignment -name VHDL_FILE debounce.vhd
+set_global_assignment -name VHDL_FILE accumulator_tb.vhd
+set_global_assignment -name QIP_FILE pll5mhz.qip
+set_global_assignment -name QIP_FILE pll12_5mhz.qip
+set_global_assignment -name QIP_FILE fifo.qip
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
