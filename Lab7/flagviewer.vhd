@@ -8,7 +8,7 @@ entity flagviewer is
 		clk 		: in std_logic;								-- 50MHz clock input
 		key		: in std_logic_vector(1 downto 0);		-- button inputs 
 		
-		-- VGA
+		-- [OUTPUTS] --
 		vga_r 	: out std_logic_vector(3 downto 0);		-- r pixel value
 		vga_b		: out std_logic_vector(3 downto 0);		-- b pixel value
 		vga_g		: out std_logic_vector(3 downto 0);		-- g pixel value
@@ -16,7 +16,6 @@ entity flagviewer is
 		vga_vs	: out std_logic								-- VS controller
 	);
 end entity flagviewer;
-
 
 architecture behavioral of flagviewer is
 	-- [COMPONENTS] --
@@ -58,20 +57,33 @@ architecture behavioral of flagviewer is
 	
 	-- [CONSTANTS] --
 	constant FRANCE 	: std_logic_vector(3 downto 0) := "0000";		-- the first, default flag
-	constant ITALY 		: std_logic_vector(3 downto 0) := "0001";
+	constant ITALY 	: std_logic_vector(3 downto 0) := "0001";
 	constant IRELAND 	: std_logic_vector(3 downto 0) := "0010";
 	constant BELGIUM 	: std_logic_vector(3 downto 0) := "0011";
 	constant MALI 		: std_logic_vector(3 downto 0) := "0100";
 	constant CHAD 		: std_logic_vector(3 downto 0) := "0101";
 	constant NIGERIA 	: std_logic_vector(3 downto 0) := "0110";
-	constant IVORY 		: std_logic_vector(3 downto 0) := "0111";
+	constant IVORY 	: std_logic_vector(3 downto 0) := "0111";
 	constant POLAND 	: std_logic_vector(3 downto 0) := "1000";
 	constant GERMANY 	: std_logic_vector(3 downto 0) := "1001";
 	constant AUSTRIA 	: std_logic_vector(3 downto 0) := "1010";
-	constant CONGO 		: std_logic_vector(3 downto 0) := "1011";
+	constant CONGO 	: std_logic_vector(3 downto 0) := "1011";
+	constant HOLD 		: std_logic_vector(3 downto 0) := "1100";
 	
 begin
-	-- [DIRECT CONNECTIONS] --
+	-- [INTSTANCES] --
+	next_db_impl : debounce port map (clk => clk, d_in => not key(0), d_out => next_db);
+	rst_db_impl  : debounce port map (clk => clk, d_in => not key(1), d_out => rst_db);
+	
+	vga_impl : vga port map(
+		clk => clk, 
+		pixel => to_stdlogicvector(x"a0f"), 
+		vga_r => vga_r, 
+		vga_g => vga_g,
+		vga_b => vga_b,
+		vga_hs => vga_hs,
+		vga_vs => vga_vs
+	);
 	
 	-- [PROCESSES] --
 	-- Next Flag Machine

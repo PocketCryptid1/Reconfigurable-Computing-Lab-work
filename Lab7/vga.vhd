@@ -6,12 +6,12 @@ entity vga is
 	port (
 		-- [INPUTS] --
 		clk 		: in std_logic;								-- clock input
-		pixel		: in std_logic_vector(11 downto 0);			-- the async pixel value
+		pixel		: in std_logic_vector(11 downto 0);		-- the sync pixel value
 		
 		-- [OUTPUTS]--
-		vga_r 	: out std_logic_vector(3 downto 0);				-- r pixel value
-		vga_b	: out std_logic_vector(3 downto 0);				-- b pixel value
-		vga_g	: out std_logic_vector(3 downto 0);				-- g pixel value
+		vga_r 	: out std_logic_vector(3 downto 0);		-- r pixel value
+		vga_b		: out std_logic_vector(3 downto 0);		-- b pixel value
+		vga_g		: out std_logic_vector(3 downto 0);		-- g pixel value
 		vga_hs	: out std_logic;								-- HS controller
 		vga_vs	: out std_logic								-- VS controller
 	);
@@ -33,7 +33,7 @@ architecture behavioral of vga is
 	constant H_TOTAL     : integer := 800;   -- Total horizontal pixels
 	
 	-- Vertical timing (lines)
-	constant V_DISPLAY    : integer := 480;  -- Display height
+	constant V_DISPLAY   : integer := 480;   -- Display height
 	constant V_FRONT     : integer := 10;    -- Front porch
 	constant V_SYNC      : integer := 2;     -- Sync pulse
 	constant V_BACK      : integer := 33;    -- Back porch
