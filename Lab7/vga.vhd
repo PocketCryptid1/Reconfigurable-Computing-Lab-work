@@ -6,14 +6,16 @@ entity vga is
 	port (
 		-- [INPUTS] --
 		clk 		: in std_logic;								-- clock input
-		pixel		: in std_logic_vector(11 downto 0);		-- the sync pixel value
+		pixel		: in std_logic_vector(11 downto 0);			-- the async pixel value
 		
 		-- [OUTPUTS]--
-		vga_r 	: out std_logic_vector(3 downto 0);		-- r pixel value
-		vga_b		: out std_logic_vector(3 downto 0);		-- b pixel value
-		vga_g		: out std_logic_vector(3 downto 0);		-- g pixel value
+		vga_r 	: out std_logic_vector(3 downto 0);				-- r pixel value
+		vga_b	: out std_logic_vector(3 downto 0);				-- b pixel value
+		vga_g	: out std_logic_vector(3 downto 0);				-- g pixel value
 		vga_hs	: out std_logic;								-- HS controller
-		vga_vs	: out std_logic								-- VS controller
+		vga_vs	: out std_logic;								-- VS controller
+		x_coord : out std_logic_vector(9 downto 0);				-- current x coordinate (0-639)
+		y_coord : out std_logic_vector(9 downto 0)				-- current y coordinate (0-479)
 	);
 end entity vga;
 
@@ -33,7 +35,7 @@ architecture behavioral of vga is
 	constant H_TOTAL     : integer := 800;   -- Total horizontal pixels
 	
 	-- Vertical timing (lines)
-	constant V_DISPLAY   : integer := 480;   -- Display height
+	constant V_DISPLAY    : integer := 480;  -- Display height
 	constant V_FRONT     : integer := 10;    -- Front porch
 	constant V_SYNC      : integer := 2;     -- Sync pulse
 	constant V_BACK      : integer := 33;    -- Back porch
@@ -45,6 +47,10 @@ begin
 	vga_r <= pixel(11 downto 8) when pixel_enable = '1' else "0000";
 	vga_g <= pixel(7 downto 4)  when pixel_enable = '1' else "0000";
 	vga_b <= pixel(3 downto 0)  when pixel_enable = '1' else "0000";
+	
+	-- Output current coordinates when in active display area
+	x_coord <= std_logic_vector(to_unsigned(h_count, 10)) when pixel_enable = '1' else (others => '0');
+	y_coord <= std_logic_vector(to_unsigned(v_count, 10)) when pixel_enable = '1' else (others => '0');
 
 	-- [PROCESSES] --
 	-- Generate 25MHz pixel clock from 50MHz input clock
