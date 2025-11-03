@@ -1,0 +1,6 @@
+DATE = "10:15:06 November 02, 2025"
+QUARTUS_VERSION = "16.0.0"
+
+# Revisions
+
+PROJECT_REVISION = "flagviewer"
