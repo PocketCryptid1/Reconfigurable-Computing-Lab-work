@@ -13,7 +13,7 @@ entity flagviewer is
 		vga_b		: out std_logic_vector(3 downto 0);		-- b pixel value
 		vga_g		: out std_logic_vector(3 downto 0);		-- g pixel value
 		vga_hs	: out std_logic;								-- HS controller
-		vga_vs	: out std_logic;								-- VS controller
+		vga_vs	: out std_logic								-- VS controller
 	);
 end entity flagviewer;
 
@@ -31,12 +31,12 @@ architecture behavioral of flagviewer is
 	component vga
 		port (
 			clk 		: in std_logic;								-- clock input
-			pixel		: in std_logic_vector(11 downto 0);		-- the async pixel value
-			vga_r 	: out std_logic_vector(3 downto 0);		-- r pixel value
-			vga_b		: out std_logic_vector(3 downto 0);		-- b pixel value
-			vga_g		: out std_logic_vector(3 downto 0);		-- g pixel value
+			pixel		: in std_logic_vector(11 downto 0);			-- the async pixel value
+			vga_r 	: out std_logic_vector(3 downto 0);				-- r pixel value
+			vga_b		: out std_logic_vector(3 downto 0);			-- b pixel value
+			vga_g		: out std_logic_vector(3 downto 0);			-- g pixel value
 			vga_hs	: out std_logic;								-- HS controller
-			vga_vs	: out std_logic;								-- VS controller
+			vga_vs	: out std_logic								-- VS controller
 		);
 	end component vga;
 	
@@ -58,17 +58,17 @@ architecture behavioral of flagviewer is
 	
 	-- [CONSTANTS] --
 	constant FRANCE 	: std_logic_vector(3 downto 0) := "0000";		-- the first, default flag
-	constant ITALY 	: std_logic_vector(3 downto 0) := "0001";
+	constant ITALY 		: std_logic_vector(3 downto 0) := "0001";
 	constant IRELAND 	: std_logic_vector(3 downto 0) := "0010";
 	constant BELGIUM 	: std_logic_vector(3 downto 0) := "0011";
 	constant MALI 		: std_logic_vector(3 downto 0) := "0100";
 	constant CHAD 		: std_logic_vector(3 downto 0) := "0101";
 	constant NIGERIA 	: std_logic_vector(3 downto 0) := "0110";
-	constant IVORY 	: std_logic_vector(3 downto 0) := "0111";
+	constant IVORY 		: std_logic_vector(3 downto 0) := "0111";
 	constant POLAND 	: std_logic_vector(3 downto 0) := "1000";
 	constant GERMANY 	: std_logic_vector(3 downto 0) := "1001";
 	constant AUSTRIA 	: std_logic_vector(3 downto 0) := "1010";
-	constant CONGO 	: std_logic_vector(3 downto 0) := "1011";
+	constant CONGO 		: std_logic_vector(3 downto 0) := "1011";
 	
 begin
 	-- [DIRECT CONNECTIONS] --
