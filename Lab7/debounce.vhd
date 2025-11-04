@@ -30,7 +30,6 @@ begin
 		if rising_edge(clk) then
 			current_state <= next_state;
 			case (next_state) is
-				when HOLD => d_out <= '1';
 				when PULL_UP => d_out <= '1';
 				when others => d_out <= '0';
 			end case;

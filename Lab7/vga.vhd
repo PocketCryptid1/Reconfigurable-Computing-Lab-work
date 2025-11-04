@@ -14,8 +14,8 @@ entity vga is
 		vga_g	: out std_logic_vector(3 downto 0);				-- g pixel value
 		vga_hs	: out std_logic;								-- HS controller
 		vga_vs	: out std_logic;								-- VS controller
-		x_coord : out std_logic_vector(9 downto 0);				-- current x coordinate (0-639)
-		y_coord : out std_logic_vector(9 downto 0)				-- current y coordinate (0-479)
+		x_coord : out integer range 0 to 639;				-- current x coordinate (0-639)
+		y_coord : out integer range 0 to 479				-- current y coordinate (0-479)
 	);
 end entity vga;
 
@@ -49,8 +49,8 @@ begin
 	vga_b <= pixel(3 downto 0)  when pixel_enable = '1' else "0000";
 	
 	-- Output current coordinates when in active display area
-	x_coord <= std_logic_vector(to_unsigned(h_count, 10)) when pixel_enable = '1' else (others => '0');
-	y_coord <= std_logic_vector(to_unsigned(v_count, 10)) when pixel_enable = '1' else (others => '0');
+	x_coord <= h_count when pixel_enable = '1' else 0;
+	y_coord <= v_count when pixel_enable = '1' else 0;
 
 	-- [PROCESSES] --
 	-- Generate 25MHz pixel clock from 50MHz input clock
