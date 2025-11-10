@@ -15,12 +15,8 @@ set_global_assignment -name DEVICE_FILTER_SPEED_GRADE 7
 #============================================================
 # CLOCK
 #============================================================
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to ADC_CLK_10
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MAX10_CLK1_50
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MAX10_CLK2_50
-set_location_assignment PIN_N5 -to ADC_CLK_10
-set_location_assignment PIN_P11 -to MAX10_CLK1_50
-set_location_assignment PIN_N14 -to MAX10_CLK2_50
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clk
+set_location_assignment PIN_P11 -to clk
 
 #============================================================
 # SEG7
@@ -147,6 +143,7 @@ set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name SOURCE_FILE accelerometer.qsf
 set_global_assignment -name VHDL_FILE seg.vhd
 set_global_assignment -name SDC_FILE accelerometer.sdc
 set_global_assignment -name VHDL_FILE accelerometer.vhd
