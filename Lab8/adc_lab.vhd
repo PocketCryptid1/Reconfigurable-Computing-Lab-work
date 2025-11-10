@@ -20,8 +20,8 @@ architecture behavioral of adc_lab is
 	signal clk_10mhz : std_logic;
 	signal adc_out : std_logic_vector(11 downto 0);
 	signal volt_count : unsigned(11 downto 0);
-	signal command_ready : std_logic;
-	signal command_valid : std_logic;
+	
+	signal count_1hz : integer range 50_000_000 to 0;
 	
 	-- COMPONENTS
 	component seg
@@ -73,11 +73,11 @@ begin
 			reset_sink_reset_n     => '1',                     --     reset_sink.reset_n
 			adc_pll_clock_clk      => clk_10mhz,               --  adc_pll_clock.clk
 			adc_pll_locked_export  => '1',                     -- adc_pll_locked.export
-			command_valid          => command_valid,           --        command.valid
+			command_valid          => '1',           --        command.valid
 			command_channel        => "00000",                 --               .channel
 			command_startofpacket  => '1',                     --               .startofpacket
 			command_endofpacket    => '1',                     --               .endofpacket
-			command_ready          => command_ready,           --               .ready
+			command_ready          => open,           --               .ready
 			response_valid         => open,                    --       response.valid
 			response_channel       => open,                    --               .channel
 			response_data          => adc_out,                 --               .data
@@ -86,7 +86,19 @@ begin
 		);
 
 	-- DIRECT BEHAVIOR --
-	volt_count <= unsigned(adc_out);
-	command_valid <= command_ready;
+	
+	process (clk) begin
+		if rising_edge(clk) then
+			count_1hz <= count_1hz + 1;
+		end if;
+	end process;
+	
+	process (count_1hz) begin
+		if count_1hz >= 50_000_000 then
+			volt_count <= unsigned(adc_out);
+		else 
+			volt_count <= volt_count;
+		end if;
+	end process;
 	
 end architecture behavioral;
