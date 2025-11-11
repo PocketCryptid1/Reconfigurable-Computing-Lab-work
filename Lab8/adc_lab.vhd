@@ -22,6 +22,10 @@ architecture behavioral of adc_lab is
 	signal volt_count : unsigned(11 downto 0) := (others => '0');
 	
 	signal count_1hz : integer range 0 to 50_000_000 := 0;
+	signal cmd_valid : std_logic := '0';
+	signal cmd_ready : std_logic;
+	signal resp_valid : std_logic;
+	signal resp_data : std_logic_vector(11 downto 0);
 	
 	-- COMPONENTS
 	component seg
@@ -73,14 +77,14 @@ begin
 			reset_sink_reset_n     => '1',                     --     reset_sink.reset_n
 			adc_pll_clock_clk      => clk_10mhz,               --  adc_pll_clock.clk
 			adc_pll_locked_export  => '1',                     -- adc_pll_locked.export
-			command_valid          => '1',                     --        command.valid
-			command_channel        => "00000",
+			command_valid          => cmd_valid,               --        command.valid
+			command_channel        => "00000",                 --               .channel
 			command_startofpacket  => '1',                     --               .startofpacket
 			command_endofpacket    => '1',                     --               .endofpacket
-			command_ready          => open,           --               .ready
-			response_valid         => open,                    --       response.valid
+			command_ready          => cmd_ready,               --               .ready
+			response_valid         => resp_valid,              --       response.valid
 			response_channel       => open,                    --               .channel
-			response_data          => adc_out,                 --               .data
+			response_data          => resp_data,               --               .data
 			response_startofpacket => open,                    --               .startofpacket
 			response_endofpacket   => open                     --               .endofpacket
 		);
@@ -89,10 +93,16 @@ begin
 	
 	process (clk) begin
 		if rising_edge(clk) then
-			count_1hz <= count_1hz + 1;
-			if count_1hz >= 50_000_000 then
-				volt_count <= unsigned(adc_out);
-				count_1hz <= 0;
+			-- Issue ADC command when ready
+			if cmd_ready = '1' then
+				cmd_valid <= '1';
+			else
+				cmd_valid <= '0';
+			end if;
+			
+			-- Latch response data when valid
+			if resp_valid = '1' then
+				volt_count <= unsigned(resp_data);
 			end if;
 		end if;
 	end process;
