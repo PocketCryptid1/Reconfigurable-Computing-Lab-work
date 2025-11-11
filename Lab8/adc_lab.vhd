@@ -74,7 +74,7 @@ begin
 			adc_pll_clock_clk      => clk_10mhz,               --  adc_pll_clock.clk
 			adc_pll_locked_export  => '1',                     -- adc_pll_locked.export
 			command_valid          => '1',                     --        command.valid
-			command_channel        => "0",                 	   --               .channel
+			command_channel        => "00000",
 			command_startofpacket  => '1',                     --               .startofpacket
 			command_endofpacket    => '1',                     --               .endofpacket
 			command_ready          => open,           --               .ready
