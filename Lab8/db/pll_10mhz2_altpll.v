@@ -1,6 +1,6 @@
-//altpll bandwidth_type="AUTO" CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" clk0_divide_by=5 clk0_duty_cycle=50 clk0_multiply_by=1 clk0_phase_shift="0" compensate_clock="CLK0" device_family="MAX 10" inclk0_input_frequency=20000 intended_device_family="MAX 10" lpm_hint="CBX_MODULE_PREFIX=pll_10mhz" operation_mode="normal" pll_type="AUTO" port_clk0="PORT_USED" port_clk1="PORT_UNUSED" port_clk2="PORT_UNUSED" port_clk3="PORT_UNUSED" port_clk4="PORT_UNUSED" port_clk5="PORT_UNUSED" port_extclk0="PORT_UNUSED" port_extclk1="PORT_UNUSED" port_extclk2="PORT_UNUSED" port_extclk3="PORT_UNUSED" port_inclk1="PORT_UNUSED" port_phasecounterselect="PORT_UNUSED" port_phasedone="PORT_UNUSED" port_scandata="PORT_UNUSED" port_scandataout="PORT_UNUSED" width_clock=5 clk inclk CARRY_CHAIN="MANUAL" CARRY_CHAIN_LENGTH=48
+//altpll bandwidth_type="AUTO" CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" clk0_divide_by=5 clk0_duty_cycle=50 clk0_multiply_by=1 clk0_phase_shift="0" compensate_clock="CLK0" device_family="MAX 10" inclk0_input_frequency=20000 intended_device_family="MAX 10" lpm_hint="CBX_MODULE_PREFIX=pll_10mhz2" operation_mode="normal" pll_type="AUTO" port_clk0="PORT_USED" port_clk1="PORT_UNUSED" port_clk2="PORT_UNUSED" port_clk3="PORT_UNUSED" port_clk4="PORT_UNUSED" port_clk5="PORT_UNUSED" port_extclk0="PORT_UNUSED" port_extclk1="PORT_UNUSED" port_extclk2="PORT_UNUSED" port_extclk3="PORT_UNUSED" port_inclk1="PORT_UNUSED" port_phasecounterselect="PORT_UNUSED" port_phasedone="PORT_UNUSED" port_scandata="PORT_UNUSED" port_scandataout="PORT_UNUSED" self_reset_on_loss_lock="OFF" width_clock=5 clk inclk locked CARRY_CHAIN="MANUAL" CARRY_CHAIN_LENGTH=48
 //VERSION_BEGIN 24.1 cbx_altclkbuf 2025:03:05:20:03:09:SC cbx_altiobuf_bidir 2025:03:05:20:03:09:SC cbx_altiobuf_in 2025:03:05:20:03:09:SC cbx_altiobuf_out 2025:03:05:20:03:09:SC cbx_altpll 2025:03:05:20:03:09:SC cbx_cycloneii 2025:03:05:20:03:09:SC cbx_lpm_add_sub 2025:03:05:20:03:09:SC cbx_lpm_compare 2025:03:05:20:03:09:SC cbx_lpm_counter 2025:03:05:20:03:09:SC cbx_lpm_decode 2025:03:05:20:03:09:SC cbx_lpm_mux 2025:03:05:20:03:09:SC cbx_mgl 2025:03:05:20:10:25:SC cbx_nadder 2025:03:05:20:03:09:SC cbx_stratix 2025:03:05:20:03:09:SC cbx_stratixii 2025:03:05:20:03:09:SC cbx_stratixiii 2025:03:05:20:03:09:SC cbx_stratixv 2025:03:05:20:03:09:SC cbx_util_mgl 2025:03:05:20:03:09:SC  VERSION_END
-//CBXI_INSTANCE_NAME="adc_lab_pll_10mhz_pll_10mhz_impl_altpll_altpll_component"
+//CBXI_INSTANCE_NAME="adc_lab_pll_10mhz2_pll_10mhz_impl_altpll_altpll_component"
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
 // altera message_off 10463
 
@@ -27,12 +27,14 @@
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
-module  pll_10mhz_altpll
+module  pll_10mhz2_altpll
 	( 
 	clk,
-	inclk) /* synthesis synthesis_clearbox=1 */;
+	inclk,
+	locked) /* synthesis synthesis_clearbox=1 */;
 	output   [4:0]  clk;
 	input   [1:0]  inclk;
+	output   locked;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
@@ -43,6 +45,7 @@ module  pll_10mhz_altpll
 
 	wire  [4:0]   wire_pll1_clk;
 	wire  wire_pll1_fbout;
+	wire  wire_pll1_locked;
 
 	fiftyfivenm_pll   pll1
 	( 
@@ -52,7 +55,7 @@ module  pll_10mhz_altpll
 	.fbin(wire_pll1_fbout),
 	.fbout(wire_pll1_fbout),
 	.inclk(inclk),
-	.locked(),
+	.locked(wire_pll1_locked),
 	.phasedone(),
 	.scandataout(),
 	.scandone(),
@@ -86,8 +89,10 @@ module  pll_10mhz_altpll
 		pll1.inclk0_input_frequency = 20000,
 		pll1.operation_mode = "normal",
 		pll1.pll_type = "auto",
+		pll1.self_reset_on_loss_lock = "off",
 		pll1.lpm_type = "fiftyfivenm_pll";
 	assign
-		clk = {wire_pll1_clk[4:0]};
-endmodule //pll_10mhz_altpll
+		clk = {wire_pll1_clk[4:0]},
+		locked = wire_pll1_locked;
+endmodule //pll_10mhz2_altpll
 //VALID FILE

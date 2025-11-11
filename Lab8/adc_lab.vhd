@@ -7,7 +7,6 @@ entity adc_lab is
 		-- INPUTS --
 		clk : in std_logic;
 
-		
 		-- OUTPUTS --
 		hex0 : out std_logic_vector(7 downto 0);
 		hex1 : out std_logic_vector(7 downto 0);
@@ -16,7 +15,23 @@ entity adc_lab is
 end entity adc_lab;
 
 architecture behavioral of adc_lab is
+	-- SIGNALS & CONSTANTS --
+	type states is (IDLE, SENDING);
 
+	signal state : states;
+
+	signal clk_10mhz : std_logic;
+	signal locked : std_logic;
+
+	signal cmd_valid : std_logic := '0';
+	signal cmd_ready : std_logic;
+	signal resp_valid : std_logic;
+	signal resp_data : std_logic_vector(11 downto 0);
+
+	signal seg_count : unsigned(11 downto 0) := (others => '0');
+	signal count_1hz : integer;
+	
+	
 	-- COMPONENTS
 	component seg
 		 port(
@@ -26,13 +41,13 @@ architecture behavioral of adc_lab is
 		 );
 	end component seg;
 	
-	component testpll is
+	component pll_10mhz2 is
 		port (
-			inclk0 : in std_logic := '0';
-			c0 : out std_logic;
-			locked : out std_logic
+			inclk0	: in std_logic  := '0';
+			c0			: out std_logic;
+			locked	: out std_logic
 		);
-	end component testpll;
+	end component pll_10mhz2;
 
 	component adc is
 		port (
@@ -85,26 +100,22 @@ architecture behavioral of adc_lab is
 begin
 
 	-- INSTANCES --
-	seg0_impl : seg port map(point => '0',  count => out_data(3 downto 0), output => hex0);
-	seg1_impl : seg port map(point => '0',  count => out_data(7 downto 4), output => hex1);
-	seg2_impl : seg port map(point => '0',  count => out_data(11 downto 8), output => hex2);
+	seg0_impl : seg port map(point => '0',  count => seg_count(3 downto 0), output => hex0);
+	seg1_impl : seg port map(point => '0',  count => seg_count(7 downto 4), output => hex1);
+	seg2_impl : seg port map(point => '0',  count => seg_count(11 downto 8), output => hex2);
 
-	testpll_inst : testpll port map (
-		inclk0 => clk,
-		c0 => clk_10mhz,
-		locked => pll_locked
-	);
+	pll_10mhz_impl : pll_10mhz2 port map (inclk0 => clk, c0 => clk_10mhz, locked => locked);
 
 	adc_impl : adc
 		port map (
 			clock_clk              => clk,                     --          clock.clk
 			reset_sink_reset_n     => reset_n,                     --     reset_sink.reset_n
 			adc_pll_clock_clk      => clk_10mhz,               --  adc_pll_clock.clk
-			adc_pll_locked_export  => pll_locked,              -- adc_pll_locked.export
+			adc_pll_locked_export  => locked,                  -- adc_pll_locked.export
 			command_valid          => cmd_valid,               --        command.valid
 			command_channel        => "00001",                 --               .channel
-			command_startofpacket  => cmd_startofpacket,                     --               .startofpacket
-			command_endofpacket    => cmd_endofpacket,                     --               .endofpacket
+			command_startofpacket  => 'X',                     --               .startofpacket
+			command_endofpacket    => 'X',                     --               .endofpacket
 			command_ready          => cmd_ready,               --               .ready
 			response_valid         => resp_valid,              --       response.valid
 			response_channel       => open,                    --               .channel
@@ -117,27 +128,25 @@ begin
 	-- BEHAVIOR --
 	process (clk) begin
 		if rising_edge(clk) then
-			case(state) is
-
-				when IDLE =>
-					--1Hz Counter
+			case (state) is
+				when IDLE => 
 					count_1hz <= count_1hz + 1;
-					if count_1hz = 50_000_000 then
+
+					if count_1hz > 50_000_000 then
 						cmd_valid <= '1';
 					end if;
 
-					--Send Command when ready
-					if cmd_ready = '1' and cmd_valid = '1' then
-						state <= SEND;
+					if cmd_ready = '1' then
+						state <= SENDING;
 					end if;
 
-				when SEND =>
+				when SENDING =>
 					cmd_valid <= '0';
-					
+
 					if resp_valid = '1' then
-						out_data <= unsigned(resp_data);
-						count_1hz <= 0;
 						state <= IDLE;
+						count_1hz <= 0;
+						seg_count <= unsigned(resp_data);
 					end if;
 			end case;
 		end if;
