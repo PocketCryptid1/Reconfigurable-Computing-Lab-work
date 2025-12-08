@@ -119,7 +119,7 @@ architecture behavioral of tetris is
 			clk: in std_logic;
 			px_x: in integer range 0 to 639;
 			px_y: in integer range 0 to 479;
-			score: in std_logic_vector(23 downto 0);
+			score_in: in std_logic_vector(23 downto 0);
 			px_en: out std_logic;
 			px_out: out std_logic_vector(11 downto 0)
 		);	
@@ -172,7 +172,7 @@ begin
 		clk => clk,
 		px_x => px_x,
 		px_y => px_y,
-		score => active_score,
+		score_in => active_score,
 		px_en => score_en,
 		px_out => score_px
 	);
