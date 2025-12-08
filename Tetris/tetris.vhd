@@ -200,7 +200,7 @@ begin
 			end if;
 
 			--test score glyphs
-			if counter = 5000000 then
+			if counter = 20000000 then
 				active_score <= std_logic_vector(unsigned(active_score) + to_unsigned(16#111111#, 24));
 				counter <= 0;
 			else
