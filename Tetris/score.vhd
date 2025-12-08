@@ -33,7 +33,7 @@ begin
 	-- [PROCESSES] --
 	process(clk) is
 		variable digit: integer range 0 to 15;
-		variable char_x: integer range 0 to CHAR_WIDTH - 1;
+		variable char_x: integer range 0 to CHAR_WIDTH + CHAR_SPACING - 1;
 		variable char_y: integer range 0 to CHAR_HEIGHT - 1;
 		variable score_digit: integer range 0 to 5;
 		variable score_value: integer;
