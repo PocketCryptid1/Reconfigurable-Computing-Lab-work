@@ -178,6 +178,7 @@ begin
 	);
 	
 	-- [DIRECT BEHAVIOR] --
+	active_score <= x"012345"; -- Example score
 	
 	-- [PROCESSES] --
 	

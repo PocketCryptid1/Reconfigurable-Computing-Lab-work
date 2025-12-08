@@ -66,21 +66,9 @@ begin
 						-- Determine pixel color based on digit
 						case digit is
 							when 0 =>
-								--if ( (char_y = 0 ) or (char_y = 24)
-								--or (char_x = 0) or (char_x = 16)) then
-								--	px_out <= "111111111111"; -- White for digit 0
-								if ( char_y = 0)
-									then
-									px_out <= "111100000000";
-								elsif (char_y = 24)
-									then
-									px_out <= "000011110000";
-								elsif (char_x = 0)
-									then
-									px_out <= "111100001111";
-								elsif (char_x = 16)
-									then
-									px_out <= "000011111111";
+								if ( (char_y = 0 ) or (char_y = 24)
+								or (char_x = 0) or (char_x = 16)) then
+									px_out <= "111111111111"; -- White for digit 0
 								else
 									px_out <= (others => '0');
 								end if;
@@ -106,18 +94,16 @@ begin
 									px_out <= (others => '0');
 								end if;
 							when 4 =>
-								if ( ( (char_x = 4) and (char_y >= 0 and char_y < 14) ) or
-									 ( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_x = 11) and (char_y >= 0 and char_y < 24) ) ) then
+								if ( (char_x = 0 and char_y<12) or ( char_y = 12) 
+								or (char_x = 16) ) then
 									px_out <= "111111111111"; -- White for digit 4
 								else
 									px_out <= (others => '0');
 								end if;
 							when 5 =>
-								if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_y >= 20 and char_y < 24) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_x = 4 or char_x = 11) and (char_y >= 4 and char_y < 20) ) ) then
+								if ( (char_y = 0) or (char_x = 0 and char_y < 12)
+								or (char_y = 12) or (char_x = 16 and char_y > 12)
+								or (char_y = 24) ) then
 									px_out <= "111111111111"; -- White for digit 5
 								else
 									px_out <= (others => '0');
