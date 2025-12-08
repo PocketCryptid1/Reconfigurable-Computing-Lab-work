@@ -57,6 +57,9 @@ architecture behavioral of tetris is
 	signal board_px: std_logic_vector(11 downto 0) := (others => '-');
 	signal score_px: std_logic_vector(11 downto 0) := (others => '-');
 	signal px_out : std_logic_vector(11 downto 0) := BG;
+
+	--counter signals
+	signal counter: integer := 0;
 	
 	-- [COMPONENTS] --
 	-- Component for the VGA module
@@ -178,13 +181,11 @@ begin
 	);
 	
 	-- [DIRECT BEHAVIOR] --
-	active_score <= x"012345"; -- Example score
 	
 	-- [PROCESSES] --
 	
 	process (clk) begin
 		if rising_edge(clk) then
-			
 			-- The graphical stack:
 			if animations_en = '1' then
 				px_out <= animations_px;
@@ -196,6 +197,14 @@ begin
 				px_out <= score_px;
 			else
 				px_out <= BG;
+			end if;
+
+			--test score glyphs
+			if counter = 5000000 then
+				active_score <= std_logic_vector(unsigned(active_score) + to_unsigned(16#111111#, 24));
+				counter <= 0;
+			else
+				counter <= counter + 1;
 			end if;
 		end if;
 	end process;

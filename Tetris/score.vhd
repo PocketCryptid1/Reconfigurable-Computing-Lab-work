@@ -66,88 +66,109 @@ begin
 						-- Determine pixel color based on digit
 						case digit is
 							when 0 =>
-								if ( (char_y = 0 ) or (char_y = 24)
-								or (char_x = 0) or (char_x = 16)) then
+								if ((char_y = 0 ) or 
+									(char_y = 24) or 
+									(char_x = 0) or 
+									(char_x = 16)
+								) then
 									px_out <= "111111111111"; -- White for digit 0
 								else
 									px_out <= (others => '0');
 								end if;
 							when 1 =>
-								if (char_x = 24) then
+								if (
+									char_x = 16
+								) then
 									px_out <= "111111111111"; -- White for digit 1
 								else
 									px_out <= (others => '0');
 								end if;
 							when 2 =>
-								if ( (char_y = 0) or (char_x = 16 and char_y < 12)
-								or (char_y = 12) or (char_x = 0 and char_y > 12)
-								or (char_y = 24)) then
+								if ((char_y = 0) or 
+									(char_x = 16 and char_y < 12) or 
+									(char_y = 12) or 
+									(char_x = 0 and char_y > 12) or
+									(char_y = 24) 
+								) then
 									px_out <= "111111111111"; -- White for digit 2
 								else
 									px_out <= (others => '0');
 								end if;
 							when 3 =>
-								if ( (char_y = 0) or (char_y = 12) or (char_y = 24)
-								or (char_x = 16) ) then
+								if ((char_y = 0) or 
+									(char_y = 12) or 
+									(char_y = 24) or
+									(char_x = 16)
+								) then
 									px_out <= "111111111111"; -- White for digit 3
 								else
 									px_out <= (others => '0');
 								end if;
 							when 4 =>
-								if ( (char_x = 0 and char_y<12) or ( char_y = 12) 
-								or (char_x = 16) ) then
+								if ((char_x = 0 and char_y < 12) or 
+									(char_y = 12) or
+									(char_x = 16)
+								) then
 									px_out <= "111111111111"; -- White for digit 4
 								else
 									px_out <= (others => '0');
 								end if;
 							when 5 =>
-								if ( (char_y = 0) or (char_x = 0 and char_y < 12)
-								or (char_y = 12) or (char_x = 16 and char_y > 12)
-								or (char_y = 24) ) then
+								if ((char_y = 0) or 
+									(char_x = 0 and char_y < 12) or
+									(char_y = 12) or 
+									(char_x = 16 and char_y > 12) or
+									(char_y = 24) 
+									) then
 									px_out <= "111111111111"; -- White for digit 5
 								else
 									px_out <= (others => '0');
 								end if;	
 							when 6 =>
-								if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_y >= 20 and char_y < 24) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_x = 4) and (char_y >= 4 and char_y < 20) ) or
-									 ( (char_x = 11) and (char_y >= 10 and char_y < 20) ) ) then
+								if ((char_y = 0) or 
+									(char_x = 16) or 
+									(char_x = 0 and char_y > 12) or
+									(char_y = 24)
+								) then
 									px_out <= "111111111111"; -- White for digit 6
 								else
 									px_out <= (others => '0');
 								end if;
 							when 7 =>
-								if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_x = 11) and (char_y >= 0 and char_y < 24) ) ) then
+								if ((char_y = 0) or
+									(char_x = 16)
+								) then
 									px_out <= "111111111111"; -- White for digit 7
 								else
 									px_out <= (others => '0');
 								end if;
 							when 8 =>
-								if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_y >= 20 and char_y < 24) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_x = 4 or char_x = 11) and (char_y >= 4 and char_y < 20) ) ) then
+								if ((char_y = 0) or
+									(char_y = 12) or
+									(char_y = 24) or
+									(char_x = 0) or
+									(char_x = 16)
+								) then
 									px_out <= "111111111111"; -- White for digit 8
 								else
 									px_out <= (others => '0');
 								end if;
 							when 9 =>
-								if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_y >= 20 and char_y <24) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_x = 11) and (char_y >= 4 and char_y < 20) ) or
-									 ( (char_x = 4) and (char_y >= 0 and char_y < 10) ) ) then
+								if ((char_y = 0) or
+									(char_y = 12) or
+									(char_x = 0 and char_y < 12) or
+									(char_x = 16)
+								) then
 									px_out <= "111111111111"; -- White for digit 9
 								else
 									px_out <= (others => '0');
 								end if;
 							when 10 => -- A
-								if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
-									( (char_y >= 4 and char_y < 20) and (char_x = 4 or char_x = 11) ) or
-									( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 12) ) ) then
+								if ((char_y = 0) or
+									(char_y = 12) or
+									(char_x = 0) or
+									(char_x = 16)
+								 ) then
 									px_out <= "111111111111"; -- White for 'A'
 								else
 									px_out <= (others => '0');
