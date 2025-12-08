@@ -25,16 +25,28 @@ architecture behavioral of blocks is
 	-- [CONSTANTS] --
 	
 	-- [SIGNALS] --
-
+	
 begin
 	-- [DIRECT BEHAVIOR] --
 	
 	-- [PROCESSES] --
-	for row in 0 to 15 generate begin
-		for col in 0 to 9 generate begin
-			
+		row_gen: for row in 14 downto 0 generate begin
+			col_gen: for col in 8 downto 0 generate begin
+				process (clk) begin
+					if rising_edge(clk) then
+						if x > 176 + col*32 and x < 176 + (col+1)*32 and 
+							y > 464 - (16-row)*32 and y < 464 + (15-row)*32 
+						then
+							px_en <= '1';
+							px_out <= piece_color(active_board(row,col));
+						else
+							px_en <= '0';
+							px_out <= (others => '0');
+						end if;
+					end if;
+				end process;	
+			end generate;
 		end generate;
-	end generate;
 	
 end architecture behavioral;
 

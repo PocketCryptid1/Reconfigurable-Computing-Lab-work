@@ -38,7 +38,7 @@ architecture behavioral of tetris is
 	
 	-- [SIGNALS] --
 	-- The game board
-	signal active_board: game_board := (others => NONE);
+	signal active_board: game_board := (others => (others => NONE));
 	signal active_score: std_logic_vector(23 downto 0);
 	
 	-- Signals that retain the current coordinate of the current pixel
