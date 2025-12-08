@@ -66,8 +66,8 @@ begin
 						-- Determine pixel color based on digit
 						case digit is
 							when 0 =>
-								if ( (char_y < 1 ) or (char_y > 23)
-								or (char_x < 1) or (char_x > 15)) then
+								if ( (char_y = 0 ) or (char_y = 24)
+								or (char_x = 0) or (char_x = 16)) then
 									px_out <= "111111111111"; -- White for digit 0
 								else
 									px_out <= (others => '0');
