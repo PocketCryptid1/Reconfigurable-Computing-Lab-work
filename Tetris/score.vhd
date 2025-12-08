@@ -72,13 +72,13 @@ begin
 								if ( char_y = 0)
 									then
 									px_out <= "111100000000";
-								elsif (char_y = 24)
+								elsif (char_y = 23)
 									then
 									px_out <= "000011110000";
 								elsif (char_x = 0)
 									then
 									px_out <= "111100001111";
-								elsif (char_x = 16)
+								elsif (char_x = 15)
 									then
 									px_out <= "000011111111";
 								else
