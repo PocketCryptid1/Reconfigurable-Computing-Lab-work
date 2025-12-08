@@ -6,11 +6,13 @@ library work;
 use work.main.all;
 
 package funcs is 
-	function piece_color(p: piece) return std_logic_vector(11 downto 0);
+	-- named subtype for a 12-bit color vector so the indexed type is declared
+	subtype color_t is std_logic_vector(11 downto 0);
+	function piece_color(p: piece) return color_t;
 end package funcs;
 
 package body funcs is 
-	function piece_color(p: piece) return std_logic_vector(11 downto 0) is
+	function piece_color(p: piece) return color_t is
 	begin
 		case (p) is
 			when PIECE_A => return "111100000000";
