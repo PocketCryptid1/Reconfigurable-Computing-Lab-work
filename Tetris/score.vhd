@@ -69,7 +69,7 @@ begin
 								--if ( (char_y = 0 ) or (char_y = 24)
 								--or (char_x = 0) or (char_x = 16)) then
 								--	px_out <= "111111111111"; -- White for digit 0
-								elsif ( char_y = 0)
+								if ( char_y = 0)
 									then
 									px_out <= "111100000000";
 								elsif (char_y = 24)
