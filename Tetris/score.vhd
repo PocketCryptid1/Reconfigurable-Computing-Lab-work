@@ -127,8 +127,8 @@ begin
 							when 6 =>
 								if ((char_y = 0) or 
 									(char_y = 12) or
-									(char_x = 16) or 
-									(char_x = 0 and char_y > 12) or
+									(char_x = 0) or 
+									(char_x = 16 and char_y > 12) or
 									(char_y = 24)
 								) then
 									px_out <= "111111111111"; -- White for digit 6
