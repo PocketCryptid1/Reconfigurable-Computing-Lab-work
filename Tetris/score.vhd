@@ -59,7 +59,7 @@ begin
 					char_y := px_y - V_OFFSET;
 
 					-- Check if within character pixel area
-					if char_x <= CHAR_WIDTH then
+					if char_x < CHAR_WIDTH then
 
 						-- Enable pixel output
 						px_en <= '1';
@@ -72,7 +72,7 @@ begin
 								if ( char_y = 0)
 									then
 									px_out <= "111100000000";
-								elsif (char_y = 23)
+								elsif (char_y = 24)
 									then
 									px_out <= "000011110000";
 								elsif (char_x = 0)
