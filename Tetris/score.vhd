@@ -66,35 +66,29 @@ begin
 						-- Determine pixel color based on digit
 						case digit is
 							when 0 =>
-								if ( ( (char_y >= 4 and char_y < 20) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_y >= 0 and char_y < 4) and (char_x >= 6 and char_x < 10) ) or
-									 ( (char_y >= 20 and char_y < 24) and (char_x >= 6 and char_x < 10) ) or
-									 ( (char_x = 4 or char_x = 11) and (char_y >= 4 and char_y < 20) ) ) then
+								if ( (char_y < 1 ) or (char_y > 23)
+								or (char_x < 1) or (char_x > 15)) then
 									px_out <= "111111111111"; -- White for digit 0
 								else
 									px_out <= (others => '0');
 								end if;
 							when 1 =>
-								if ( (char_x >= 6 and char_x < 10) and (char_y >= 0 and char_y < 24) ) then
+								if (char_x > 23) then
 									px_out <= "111111111111"; -- White for digit 1
 								else
 									px_out <= (others => '0');
 								end if;
 							when 2 =>
-								if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_y >= 20 and char_y < 24) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_x = 11) and (char_y >= 4 and char_y < 10) ) or
-									 ( (char_x = 4) and (char_y >= 14 and char_y < 20) ) ) then
+								if ( (char_y < 1) or (char_x > 15 and char_y < 12)
+								or (char_y = 12) or (char_x < 1 and char_y > 12)
+								or (char_y > 23)) then
 									px_out <= "111111111111"; -- White for digit 2
 								else
 									px_out <= (others => '0');
 								end if;
 							when 3 =>
-								if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_y >= 20 and char_y < 24) and (char_x >= 4 and char_x < 12) ) or
-									 ( (char_x = 11) and (char_y >= 4 and char_y < 20) ) ) then
+								if ( (char_y < 1) or (char_y = 12) or (char_y > 23)
+								or (char_x > 15) ) then
 									px_out <= "111111111111"; -- White for digit 3
 								else
 									px_out <= (others => '0');
@@ -152,58 +146,58 @@ begin
 								else
 									px_out <= (others => '0');
 								end if;
-						when 10 => -- A
-							if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
-							     ( (char_y >= 4 and char_y < 20) and (char_x = 4 or char_x = 11) ) or
-							     ( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 12) ) ) then
-								px_out <= "111111111111"; -- White for 'A'
-							else
-								px_out <= (others => '0');
-							end if;
-						when 11 => -- B (render as b)
-							if ( ( (char_y >= 0 and char_y < 24) and (char_x = 4) ) or
-							     ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 11) ) or
-							     ( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 11) ) or
-							     ( (char_y >= 20 and char_y < 24) and (char_x >= 4 and char_x < 11) ) or
-							     ( (char_x = 11) and ((char_y >= 4 and char_y < 10) or (char_y >= 14 and char_y < 20)) ) ) then
-								px_out <= "111111111111"; -- White for 'b'
-							else
-								px_out <= (others => '0');
-							end if;
-						when 12 => -- C
-							if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
-							     ( (char_y >= 4 and char_y < 20) and (char_x = 4) ) or
-							     ( (char_y >= 20 and char_y < 24) and (char_x >= 4 and char_x < 12) ) ) then
-								px_out <= "111111111111"; -- White for 'C'
-							else
-								px_out <= (others => '0');
-							end if;
-						when 13 => -- D (render as d)
-							if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 11) ) or
-							     ( (char_y >= 4 and char_y < 20) and (char_x = 11) ) or
-							     ( (char_y >= 4 and char_y < 20) and (char_x = 4) ) or
-							     ( (char_y >= 20 and char_y < 24) and (char_x >= 4 and char_x < 11) ) ) then
-								px_out <= "111111111111"; -- White for 'd'
-							else
-								px_out <= (others => '0');
-							end if;
-						when 14 => -- E
-							if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
-							     ( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 12) ) or
-							     ( (char_y >= 20 and char_y < 24) and (char_x >= 4 and char_x < 12) ) or
-							     ( (char_x = 4) and (char_y >= 4 and char_y < 20) ) ) then
-								px_out <= "111111111111"; -- White for 'E'
-							else
-								px_out <= (others => '0');
-							end if;
-						when 15 => -- F
-							if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
-							     ( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 12) ) or
-							     ( (char_x = 4) and (char_y >= 4 and char_y < 20) ) ) then
-								px_out <= "111111111111"; -- White for 'F'
-							else
-								px_out <= (others => '0');
-							end if;
+							when 10 => -- A
+								if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
+									( (char_y >= 4 and char_y < 20) and (char_x = 4 or char_x = 11) ) or
+									( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 12) ) ) then
+									px_out <= "111111111111"; -- White for 'A'
+								else
+									px_out <= (others => '0');
+								end if;
+							when 11 => -- B (render as b)
+								if ( ( (char_y >= 0 and char_y < 24) and (char_x = 4) ) or
+									( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 11) ) or
+									( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 11) ) or
+									( (char_y >= 20 and char_y < 24) and (char_x >= 4 and char_x < 11) ) or
+									( (char_x = 11) and ((char_y >= 4 and char_y < 10) or (char_y >= 14 and char_y < 20)) ) ) then
+									px_out <= "111111111111"; -- White for 'b'
+								else
+									px_out <= (others => '0');
+								end if;
+							when 12 => -- C
+								if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
+									( (char_y >= 4 and char_y < 20) and (char_x = 4) ) or
+									( (char_y >= 20 and char_y < 24) and (char_x >= 4 and char_x < 12) ) ) then
+									px_out <= "111111111111"; -- White for 'C'
+								else
+									px_out <= (others => '0');
+								end if;
+							when 13 => -- D (render as d)
+								if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 11) ) or
+									( (char_y >= 4 and char_y < 20) and (char_x = 11) ) or
+									( (char_y >= 4 and char_y < 20) and (char_x = 4) ) or
+									( (char_y >= 20 and char_y < 24) and (char_x >= 4 and char_x < 11) ) ) then
+									px_out <= "111111111111"; -- White for 'd'
+								else
+									px_out <= (others => '0');
+								end if;
+							when 14 => -- E
+								if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
+									( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 12) ) or
+									( (char_y >= 20 and char_y < 24) and (char_x >= 4 and char_x < 12) ) or
+									( (char_x = 4) and (char_y >= 4 and char_y < 20) ) ) then
+									px_out <= "111111111111"; -- White for 'E'
+								else
+									px_out <= (others => '0');
+								end if;
+							when 15 => -- F
+								if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
+									( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 12) ) or
+									( (char_x = 4) and (char_y >= 4 and char_y < 20) ) ) then
+									px_out <= "111111111111"; -- White for 'F'
+								else
+									px_out <= (others => '0');
+								end if;
 							when others =>
 								px_out <= (others => '0');	
 						end case;
