@@ -44,7 +44,7 @@ begin
 			px_out <= (others => '0');
 			-- Check if within score area
 			if (px_y >= V_OFFSET) and (px_y <= V_OFFSET + CHAR_HEIGHT) then
-				if (px_x >= H_OFFSET) and (px_x <= H_OFFSET + (6 * (CHAR_WIDTH + CHAR_SPACING))) then
+				if (px_x >= H_OFFSET) and (px_x <= H_OFFSET + (6 * (CHAR_WIDTH + CHAR_SPACING)) - (CHAR_SPACING / 2)) then
 					-- Determine which hex digit we're on (6 hex digits for 24-bit input)
 					score_value := to_integer(unsigned(score_in));
 
@@ -59,7 +59,7 @@ begin
 					char_y := px_y - V_OFFSET;
 
 					-- Check if within character pixel area
-					if char_x < CHAR_WIDTH then
+					if char_x <= CHAR_WIDTH then
 
 						-- Enable pixel output
 						px_en <= '1';
@@ -78,7 +78,7 @@ begin
 								elsif (char_x = 0)
 									then
 									px_out <= "111100001111";
-								elsif (char_x = 15)
+								elsif (char_x = 16)
 									then
 									px_out <= "000011111111";
 								else
