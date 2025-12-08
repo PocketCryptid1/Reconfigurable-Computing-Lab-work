@@ -29,13 +29,10 @@ architecture behavioral of score is
 
 begin
 	-- [DIRECT BEHAVIOR] --
-
-	px_en <= '0';
-	px_out <= (others => '0');
 	
 	-- [PROCESSES] --
 	process(clk) is
-		variable digit: integer range 0 to 9;
+		variable digit: integer range 0 to 15;
 		variable char_x: integer range 0 to CHAR_WIDTH - 1;
 		variable char_y: integer range 0 to CHAR_HEIGHT - 1;
 		variable score_digit: integer range 0 to 5;
@@ -48,12 +45,14 @@ begin
 			-- Check if within score area
 			if (px_y >= V_OFFSET) and (px_y < V_OFFSET + CHAR_HEIGHT) then
 				if (px_x >= H_OFFSET) and (px_x < H_OFFSET + (6 * (CHAR_WIDTH + CHAR_SPACING))) then
-					-- Determine which digit we're on
+					-- Determine which hex digit we're on (6 hex digits for 24-bit input)
 					score_value := to_integer(unsigned(score_in));
 
+					-- score_digit: 5 down to 0 from leftmost to rightmost
 					score_digit := 5 - ((px_x - H_OFFSET) / (CHAR_WIDTH + CHAR_SPACING));
 
-					digit := (score_value / (10 ** score_digit)) mod 10;
+					-- Extract hex digit: divide by 16^(score_digit) and mask lower 4 bits
+					digit := (score_value / (16 ** score_digit)) mod 16;
 
 					-- Determine character pixel coordinates
 					char_x := (px_x - H_OFFSET) mod (CHAR_WIDTH + CHAR_SPACING);
@@ -153,6 +152,58 @@ begin
 								else
 									px_out <= (others => '0');
 								end if;
+						when 10 => -- A
+							if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
+							     ( (char_y >= 4 and char_y < 20) and (char_x = 4 or char_x = 11) ) or
+							     ( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 12) ) ) then
+								px_out <= "111111111111"; -- White for 'A'
+							else
+								px_out <= (others => '0');
+							end if;
+						when 11 => -- B (render as b)
+							if ( ( (char_y >= 0 and char_y < 24) and (char_x = 4) ) or
+							     ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 11) ) or
+							     ( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 11) ) or
+							     ( (char_y >= 20 and char_y < 24) and (char_x >= 4 and char_x < 11) ) or
+							     ( (char_x = 11) and ((char_y >= 4 and char_y < 10) or (char_y >= 14 and char_y < 20)) ) ) then
+								px_out <= "111111111111"; -- White for 'b'
+							else
+								px_out <= (others => '0');
+							end if;
+						when 12 => -- C
+							if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
+							     ( (char_y >= 4 and char_y < 20) and (char_x = 4) ) or
+							     ( (char_y >= 20 and char_y < 24) and (char_x >= 4 and char_x < 12) ) ) then
+								px_out <= "111111111111"; -- White for 'C'
+							else
+								px_out <= (others => '0');
+							end if;
+						when 13 => -- D (render as d)
+							if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 11) ) or
+							     ( (char_y >= 4 and char_y < 20) and (char_x = 11) ) or
+							     ( (char_y >= 4 and char_y < 20) and (char_x = 4) ) or
+							     ( (char_y >= 20 and char_y < 24) and (char_x >= 4 and char_x < 11) ) ) then
+								px_out <= "111111111111"; -- White for 'd'
+							else
+								px_out <= (others => '0');
+							end if;
+						when 14 => -- E
+							if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
+							     ( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 12) ) or
+							     ( (char_y >= 20 and char_y < 24) and (char_x >= 4 and char_x < 12) ) or
+							     ( (char_x = 4) and (char_y >= 4 and char_y < 20) ) ) then
+								px_out <= "111111111111"; -- White for 'E'
+							else
+								px_out <= (others => '0');
+							end if;
+						when 15 => -- F
+							if ( ( (char_y >= 0 and char_y < 4) and (char_x >= 4 and char_x < 12) ) or
+							     ( (char_y >= 10 and char_y < 14) and (char_x >= 4 and char_x < 12) ) or
+							     ( (char_x = 4) and (char_y >= 4 and char_y < 20) ) ) then
+								px_out <= "111111111111"; -- White for 'F'
+							else
+								px_out <= (others => '0');
+							end if;
 							when others =>
 								px_out <= (others => '0');	
 						end case;
