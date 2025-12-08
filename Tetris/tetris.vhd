@@ -32,14 +32,32 @@ end entity tetris;
 
 architecture behavioral of tetris is
 	-- [TYPES] --
+	type game_state is (PAUSE, DROP, UPDATE, LOSE);
 	
 	-- [CONSTANTS] --
 	constant BG: std_logic_vector(11 downto 0) := "000000000000";
 	
 	-- [SIGNALS] --
 	-- The game board
-	signal active_board: game_board := (others => (others => NONE));
+	signal active_board: game_board := (
+		0 => (0 => PIECE_C, 1 => PIECE_D, 2 => PIECE_A, 3 => PIECE_D, 4 => PIECE_A, 5 => PIECE_D, 6 => PIECE_A, 7 => PIECE_D, 8 => PIECE_C),
+		1 => (PIECE_B, PIECE_A, PIECE_D, PIECE_A, PIECE_D, PIECE_A, PIECE_D, PIECE_A, PIECE_B), 
+		2 => (others => PIECE_A), 
+		3 => (others => PIECE_D), 
+		4 => (others => PIECE_A), 
+		5 => (others => PIECE_D), 
+		6 => (others => PIECE_B), 
+		7 => (others => PIECE_C), 
+		8 => (others => PIECE_B), 
+		9 => (others => PIECE_C), 
+		10 => (others => PIECE_D), 
+		11 => (others => PIECE_C), 
+		12 => (others => PIECE_D), 
+		13 => (PIECE_A, PIECE_C, PIECE_B, PIECE_C, PIECE_B, PIECE_C, PIECE_B, PIECE_C, PIECE_A), 
+		14 => (PIECE_D, PIECE_B, PIECE_C, PIECE_B, PIECE_C, PIECE_B, PIECE_C, PIECE_B, PIECE_D));
+		
 	signal active_score: std_logic_vector(23 downto 0);
+	signal state: game_state = PAUSE;
 	
 	-- Signals that retain the current coordinate of the current pixel
 	signal px_x	: integer range 0 to 639;
@@ -187,14 +205,14 @@ begin
 	process (clk) begin
 		if rising_edge(clk) then
 			-- The graphical stack:
-			if animations_en = '1' then
-				px_out <= animations_px;
-			elsif blocks_en = '1' then
-				px_out <= blocks_px;
-			elsif board_en = '1' then
+			if board_en = '1' then
 				px_out <= board_px;
 			elsif score_en = '1' then
 				px_out <= score_px;
+			elsif blocks_en = '1' then
+				px_out <= blocks_px;
+			elsif animations_en = '1' then
+				px_out <= animations_px;
 			else
 				px_out <= BG;
 			end if;

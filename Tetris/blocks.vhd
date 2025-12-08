@@ -30,13 +30,13 @@ architecture behavioral of blocks is
 		
 begin
 	-- [DIRECT BEHAVIOR] --
-	active_col <= (px_x - 176) / 32;
-	active_row <= (px_y - 16) / 32;
+	active_col <= (px_x - 176 + 32 - 1) / 32;
+	active_row <= (px_y - 16 + 32 - 1) / 32;
 	
 	-- [PROCESSES] --
 		process (clk) begin
 			if rising_edge(clk) then
-				if px_x > 176 and px_x < 464 and px_y > 16 and px_y < 464
+				if px_x > 176 and px_x < 464 and px_y >= 0 and px_y < 464
 				then
 					px_en <= '1';
 					px_out <= piece_color(active_board(active_row, active_col));
