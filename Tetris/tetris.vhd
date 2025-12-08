@@ -38,7 +38,8 @@ architecture behavioral of tetris is
 	
 	-- [SIGNALS] --
 	-- The game board
-	signal game: game_board;
+	signal active_board: game_board := (others => NONE);
+	signal active_score: std_logic_vector(23 downto 0);
 	
 	-- Signals that retain the current coordinate of the current pixel
 	signal px_x	: integer range 0 to 639;
@@ -80,6 +81,7 @@ architecture behavioral of tetris is
 			clk: in std_logic;
 			px_x: in integer range 0 to 639;
 			px_y: in integer range 0 to 479;
+			do_drop: in std_logic;
 			piece: in piece;
 			drop_x: in integer range 0 to 9;
 			drop_y: in integer range 0 to 16;
@@ -94,6 +96,7 @@ architecture behavioral of tetris is
 			clk: in std_logic;
 			px_x: in integer range 0 to 639;
 			px_y: in integer range 0 to 479;
+			active_board: in game_board;
 			px_en: out std_logic;
 			px_out: out std_logic_vector(11 downto 0)
 		);	
@@ -116,6 +119,7 @@ architecture behavioral of tetris is
 			clk: in std_logic;
 			px_x: in integer range 0 to 639;
 			px_y: in integer range 0 to 479;
+			score: in std_logic_vector(23 downto 0);
 			px_en: out std_logic;
 			px_out: out std_logic_vector(11 downto 0)
 		);	
@@ -139,6 +143,7 @@ begin
 		clk => clk,
 		px_x => px_x,
 		px_y => px_y,
+		do_drop => '1',
 		piece => PIECE_A,
 		drop_x => 4,
 		drop_y => 15,
@@ -150,6 +155,7 @@ begin
 		clk => clk,
 		px_x => px_x,
 		px_y => px_y,
+		active_board => active_board,
 		px_en => blocks_en,
 		px_out => blocks_px
 	);
@@ -166,6 +172,7 @@ begin
 		clk => clk,
 		px_x => px_x,
 		px_y => px_y,
+		score => active_score,
 		px_en => score_en,
 		px_out => score_px
 	);

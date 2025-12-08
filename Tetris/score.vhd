@@ -8,6 +8,7 @@ entity score is
 		clk: in std_logic;
 		px_x: in integer range 0 to 639;
 		px_y: in integer range 0 to 479;
+		score: in std_logic_vector(23 downto 0);
 		
 		-- [OUTPUTS] --
 		px_en: out std_logic;

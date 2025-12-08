@@ -2,6 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.main.all;
+use work.funcs.all;
 
 entity animations is
 	port(
@@ -10,6 +11,7 @@ entity animations is
 		px_x: in integer range 0 to 639;
 		px_y: in integer range 0 to 479;
 		
+		do_drop: in std_logic;
 		piece: in piece;
 		drop_x: in integer range 0 to 9;
 		drop_y: in integer range 0 to 16;
@@ -29,8 +31,6 @@ architecture behavioral of animations is
 
 begin
 	-- [DIRECT BEHAVIOR] --
-	px_en <= '0';
-	px_out <= (others => '0');
 	
 	-- [PROCESSES] --
 	
