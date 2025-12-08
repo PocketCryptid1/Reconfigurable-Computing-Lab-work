@@ -43,8 +43,8 @@ begin
 			px_en <= '0';
 			px_out <= (others => '0');
 			-- Check if within score area
-			if (px_y >= V_OFFSET) and (px_y < V_OFFSET + CHAR_HEIGHT) then
-				if (px_x >= H_OFFSET) and (px_x < H_OFFSET + (6 * (CHAR_WIDTH + CHAR_SPACING))) then
+			if (px_y >= V_OFFSET) and (px_y <= V_OFFSET + CHAR_HEIGHT) then
+				if (px_x >= H_OFFSET) and (px_x <= H_OFFSET + (6 * (CHAR_WIDTH + CHAR_SPACING))) then
 					-- Determine which hex digit we're on (6 hex digits for 24-bit input)
 					score_value := to_integer(unsigned(score_in));
 
@@ -72,13 +72,13 @@ begin
 								if ( char_y = 0)
 									then
 									px_out <= "111100000000";
-								elsif (char_y = 23)
+								elsif (char_y = 24)
 									then
 									px_out <= "000011110000";
 								elsif (char_x = 0)
 									then
 									px_out <= "111100001111";
-								elsif (char_x = 15)
+								elsif (char_x = 16)
 									then
 									px_out <= "000011111111";
 								else
