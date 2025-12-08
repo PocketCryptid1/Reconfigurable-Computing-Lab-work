@@ -59,7 +59,7 @@ begin
 					char_y := px_y - V_OFFSET;
 
 					-- Check if within character pixel area
-					if char_x < CHAR_WIDTH then
+					if char_x <= CHAR_WIDTH then
 
 						-- Enable pixel output
 						px_en <= '1';
@@ -213,6 +213,8 @@ begin
 							when others =>
 								px_out <= (others => '0');	
 						end case;
+					else 
+						px_out <= (others => '0');
 					end if;
 				end if;
 			end if;
