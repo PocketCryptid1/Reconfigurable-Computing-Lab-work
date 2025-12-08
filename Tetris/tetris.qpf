@@ -1,0 +1,6 @@
+DATE = "11:11:42 December 08, 2025"
+QUARTUS_VERSION = "16.0.0"
+
+# Revisions
+
+PROJECT_REVISION = "tetris"
