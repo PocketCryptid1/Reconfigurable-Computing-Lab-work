@@ -126,6 +126,7 @@ begin
 								end if;	
 							when 6 =>
 								if ((char_y = 0) or 
+									(char_y = 12) or
 									(char_x = 16) or 
 									(char_x = 0 and char_y > 12) or
 									(char_y = 24)
