@@ -41,7 +41,7 @@ begin
 				px_en <= '1';
 				px_out <= drop_color(piece);
 			else
-				px_en <= '0'
+				px_en <= '0';
 				px_out <= (others => '0');
 			end if;
 		end if;

@@ -39,8 +39,10 @@ architecture behavioral of tetris is
 	
 	-- [SIGNALS] --
 	-- The game board
+	signal active_board: game_board := (others => (others => NONE));
+	
 	signal active_score: std_logic_vector(23 downto 0);
-	signal state: game_state = PAUSE;
+	signal state: game_state := RST;
 
 	signal next_piece: piece := PIECE_A;
 	signal current_row : integer range 0 to 15 := 0;
@@ -65,6 +67,7 @@ architecture behavioral of tetris is
 
 	--counter signals
 	signal counter: integer := 0;
+	signal buzzer_counter: integer := 0;
 	
 	-- [COMPONENTS] --
 	-- Component for the VGA module
@@ -216,55 +219,67 @@ begin
 				counter <= counter + 1;
 			end if;
 
+			--test arduino pins
+			if arduino_io(0) = '0' then
+				if buzzer_counter = 100000 then
+					arduino_io(2) <= not arduino_io(2);
+					buzzer_counter <= 0;
+				else
+					buzzer_counter <= buzzer_counter + 1;
+				end if;
+			else
+				arduino_io(2) <= '0';
+			end if;
+
 			-- game state machine
-			case state is
+			--case state is
 
-				when RNG =>
-					next_piece <= PIECE_A;
-					-- [TODO]: random piece generation
-					active_board(0,5) <= next_piece; -- test placement
-					current_row <= 0;
-					current_col <= 5;
-					state <= FALL;
-					-- piece falling
-					-- end if;
-					state <= FALL;
-				when FALL =>
-					-- move piece down the board
-					--[TODO] implement piece falling logic
-					if current_board(current_row + 1, current_col) != EMPTY then
-						--[TODO] place piece on board
-						state <= CHECK;
-					end if;
-				when ANIM =>
-					-- play animation of piece falling
-					state <= FALL;
-				when CHECK =>
-					-- check for color matches
-					--if matches found then
-					state <= CLEAR;
-					--else
-					--check for game over
-					--	if game over then
-					--		state <= LOSE;
-					--	else
-					--		state <= RNG;
-					--	end if;
-				when CLEAR =>
-					-- clear matched pieces
-					state <= UPDATE;
-				when UPDATE =>
-					-- update board and score
-					state <= CHECK;
+				-- when RNG =>
+				-- 	next_piece <= PIECE_A;
+				-- 	-- [TODO]: random piece generation
+				-- 	active_board(0,5) <= next_piece; -- test placement
+				-- 	current_row <= 0;
+				-- 	current_col <= 5
+				-- 	state <= FALL;
+				-- 	-- piece falling
+				-- 	-- end if;
+				-- 	state <= FALL;
+				-- when FALL =>
+				-- 	-- move piece down the board
+				-- 	--[TODO] implement piece falling logic
+				-- 	if current_board(current_row + 1, current_col) != EMPTY then
+				-- 		--[TODO] place piece on board
+				-- 		state <= CHECK;
+				-- 	end if;
+				-- when ANIM =>
+				-- 	-- play animation of piece falling
+				-- 	state <= FALL;
+				-- when CHECK =>
+				-- 	-- check for color matches
+				-- 	--if matches found then
+				-- 	state <= CLEAR;
+				-- 	--else
+				-- 	--check for game over
+				-- 	--	if game over then
+				-- 	--		state <= LOSE;
+				-- 	--	else
+				-- 	--		state <= RNG;
+				-- 	--	end if;
+				-- when CLEAR =>
+				-- 	-- clear matched pieces
+				-- 	state <= UPDATE;
+				-- when UPDATE =>
+				-- 	-- update board and score
+				-- 	state <= CHECK;
 
-				when LOSE =>
-					-- game over state
-					state <= RST;
-				when RST =>
-					state <= RNG;
-				when others =>
-					state <= RNG;
-			end case;
+				-- when LOSE =>
+				-- 	-- game over state
+				-- 	state <= RST;
+				-- when RST =>
+				-- 	state <= RNG;
+				-- when others =>
+				-- 	state <= RNG;
+			--end case;
 		end if;
 	end process;
 end architecture behavioral;
