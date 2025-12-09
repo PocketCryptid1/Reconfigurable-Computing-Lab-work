@@ -32,7 +32,7 @@ end entity tetris;
 
 architecture behavioral of tetris is
 	-- [TYPES] --
-	type game_state is (PAUSE, DROP, UPDATE, LOSE);
+	type game_state is (RNG, FALL, CHECK, CLEAR, UPDATE, LOSE, RST);
 	
 	-- [CONSTANTS] --
 	constant BG: std_logic_vector(11 downto 0) := "000000000000";
@@ -55,10 +55,14 @@ architecture behavioral of tetris is
 		12 => (others => PIECE_D), 
 		13 => (PIECE_A, PIECE_C, PIECE_B, PIECE_C, PIECE_B, PIECE_C, PIECE_B, PIECE_C, PIECE_A), 
 		14 => (PIECE_D, PIECE_B, PIECE_C, PIECE_B, PIECE_C, PIECE_B, PIECE_C, PIECE_B, PIECE_D));
-		
+		 
 	signal active_score: std_logic_vector(23 downto 0);
 	signal state: game_state = PAUSE;
-	
+
+	signal next_piece: piece := PIECE_A;
+	signal current_row : integer range 0 to 15 := 0;
+	signal current_col : integer range 0 to 9 := 0;
+
 	-- Signals that retain the current coordinate of the current pixel
 	signal px_x	: integer range 0 to 639;
 	signal px_y	: integer range 0 to 479;
@@ -218,7 +222,8 @@ begin
 			end if;
 
 			--test score glyphs
-			if counter = 20000000 then
+			if 
+			counter = 20000000 then
 				active_score <= std_logic_vector(unsigned(active_score) + to_unsigned(16#111111#, 24));
 				if active_score = x"FFFFFF" then
 					active_score <= (others => '0');
@@ -227,6 +232,53 @@ begin
 			else
 				counter <= counter + 1;
 			end if;
+
+			-- game state machine
+			case state is
+
+				when RNG =>
+					next_piece <= PIECE_A;
+					-- [TODO]: random piece generation
+					active_board(0,5) <= next_piece; -- test placement
+					current_row <= 0;
+					current_col <= 5;
+					state <= FALL;
+					-- piece falling
+					-- end if;
+					state <= FALL;
+				when FALL =>
+					-- move piece down the board
+					--[TODO] implement piece falling logic
+					if current_board(current_row + 1, current_col) != EMPTY then
+						--[TODO] place piece on board
+						state <= CHECK;
+					end if;
+				when CHECK =>
+					-- check for color matches
+					--if matches found then
+					state <= CLEAR;
+					--else
+					--check for game over
+					--	if game over then
+					--		state <= LOSE;
+					--	else
+					--		state <= RNG;
+					--	end if;
+				when CLEAR =>
+					-- clear matched pieces
+					state <= UPDATE;
+				when UPDATE =>
+					-- update board and score
+					state <= CHECK;
+
+				when LOSE =>
+					-- game over state
+					state <= RST;
+				when RST =>
+					state <= RNG;
+				when others =>
+					state <= RNG;
+			end case;
 		end if;
 	end process;
 end architecture behavioral;
