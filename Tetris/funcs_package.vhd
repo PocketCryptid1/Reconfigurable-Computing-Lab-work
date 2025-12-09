@@ -10,6 +10,8 @@ package funcs is
 	
 	function piece_color(p: piece) return color_out;
 	function drop_color(p: piece) return color_out;
+	function to_piece(p: piece) return piece;
+	
 end package funcs;
 
 package body funcs is 
@@ -32,6 +34,17 @@ package body funcs is
 			when DROP_C => return "000000001111";
 			when DROP_D => return "111111110000";
 			when others => return "000000000000";
+		end case;
+	end;
+	
+	function to_piece(p: piece) return piece is
+	begin
+		case (p) is
+			when DROP_A => PIECE_A;
+			when DROP_B => PIECE_B;
+			when DROP_C => PIECE_C;
+			when DROP_D => PIECE_D;
+			when others => p;
 		end case;
 	end;
 end package body funcs;

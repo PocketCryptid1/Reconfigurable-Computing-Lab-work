@@ -32,21 +32,43 @@ end entity tetris;
 
 architecture behavioral of tetris is
 	-- [TYPES] --
-	type game_state is (RNG, FALL, ANIM, CHECK, CLEAR, UPDATE, LOSE, RST);
+	type game_state is (RST, RNG, ANIM, ANIM_WAIT, FALL, CHECK, CLEAR, UPDATE, LOSE);
 	
 	-- [CONSTANTS] --
 	constant BG: std_logic_vector(11 downto 0) := "000000000000";
+	constant MAX_FALL_COUNT: integer 0 to 100e6 := 50e6 / 1;
 	
 	-- [SIGNALS] --
 	-- The game board
 	signal active_board: game_board := (others => (others => NONE));
 	
 	signal active_score: std_logic_vector(23 downto 0);
-	signal state: game_state := RST;
+	
+	-- Input signals
+	signal rst_db: std_logic;
+	signal btn_db: std_logic;
+	signal left_db: std_logic;
+	signal right_db: std_logic;
+	
+	-- State signals
+	signal crnt_state: game_state := RST;
+	signal next_state: game_state := RST;
+	
+	signal rng_ready: std_logic;
+	signal fall_anim_done: std_logic;
+	signal falling: std_logic;
+	signal place_top_row: std_logic;
+	signal clearing: std_logic;
 
-	signal next_piece: piece := PIECE_A;
+	signal active_piece: piece := PIECE_A;
 	signal current_row : integer range 0 to 15 := 0;
 	signal current_col : integer range 0 to 9 := 0;
+	
+	signal anim_rate_count: integer range 0 to 500000;
+	signal anim_px_count: integer range 0 to 32;
+	signal do_drop_anim: std_logic;
+	signal drop_x: integer range 0 to 639;
+	signal drop_y: integer range 0 to 479;
 
 	-- Signals that retain the current coordinate of the current pixel
 	signal px_x	: integer range 0 to 639;
@@ -85,6 +107,14 @@ architecture behavioral of tetris is
 		);
 	end component vga;
 	
+	component debounce
+		port(
+			clk 	: in std_logic;	-- The clock that drives the state machine
+			d_in 	: in std_logic;	-- The value to debounce
+			d_out : out std_logic	-- The debounced value
+		);
+	end component debounce;
+	
 	-- Components for the graphic stack
 	-- Controls the drawing of the animation of the block falling
 	component animations is
@@ -94,8 +124,8 @@ architecture behavioral of tetris is
 			px_y: in integer range 0 to 479;
 			do_drop: in std_logic;
 			piece: in piece;
-			drop_x: in integer range 0 to 9;
-			drop_y: in integer range 0 to 16;
+			drop_x: in integer range 0 to 639;
+			drop_y: in integer range 0 to 479;
 			px_en: out std_logic;
 			px_out: out std_logic_vector(11 downto 0)
 		);	
@@ -150,14 +180,19 @@ begin
 		y_coord => px_y
 	);
 	
+	rst_db_impl : debounce port map (clk => clk, d_in => not key(0), d_out => rst_db);
+	btn_db_impl  : debounce port map (clk => clk, d_in => not key(1), d_out => btn_db);
+	left_db_impl : debounce port map (clk => clk, d_in => not arduino_io(0), d_out => left_db);
+	right_db_impl  : debounce port map (clk => clk, d_in => not arduino_io(1), d_out => right_db);
+	
 	animations_impl : animations port map (
 		clk => clk,
 		px_x => px_x,
 		px_y => px_y,
-		do_drop => '1',
-		piece => PIECE_A,
-		drop_x => 4,
-		drop_y => 15,
+		do_drop => do_drop_anim,
+		piece => active_piece,
+		drop_x => drop_x,
+		drop_y => drop_y,
 		px_en => animations_en,
 		px_out => animations_px
 	);
@@ -206,80 +241,106 @@ begin
 			else
 				px_out <= BG;
 			end if;
-
-			--test score glyphs
-			if 
-			counter = 20000000 then
-				active_score <= std_logic_vector(unsigned(active_score) + to_unsigned(16#111111#, 24));
-				if active_score = x"FFFFFF" then
-					active_score <= (others => '0');
+			
+			-- reading game state
+			process (clk, next_state) begin
+				if rising_edge(clk) then
+					crnt_state <= next_state;
+					case (next_state) is
+						when RST => 
+							active_board <= (others => (others => NONE));
+							do_drop_anim <= '0';
+							
+						when RNG => 
+							do_drop_anim <= '0';
+							active_piece <= DROP_A;
+							drop_x = 304;
+							drop_y = 16;
+							
+						when ANIM => 
+							do_drop_anim <= '1';
+							drop_x <= current_col * 32 + 176;
+							drop_y <= current_row * 32 - 16 + anim_px_count;
+							anim_rate_count <= 0;
+							
+						when ANIM_WAIT =>
+							do_drop_anim <= '1';
+							anim_rate_count <= anim_rate_count + 1;
+							
+						when FALL => 
+							do_drop_anim <= '0';
+							active_board(current_row, current_col) = NONE;
+							active_board(current_row + 1, current_col) = active_piece;
+							
+						when CHECK => 
+							do_drop_anim <= '0';
+							
+						when CLEAR => 
+							do_drop_anim <= '0';
+							
+						when UPDATE => 
+							do_drop_anim <= '0';
+							
+						when LOSE => 
+							do_drop_anim <= '0';
+							
+						when others => 
+							active_board <= active_board;
+							do_drop_anim <= '0';
+							
+					end case;
 				end if;
-				counter <= 0;
-			else
-				counter <= counter + 1;
-			end if;
-
-			--test arduino pins
-			if arduino_io(0) = '0' then
-				if buzzer_counter = 100000 then
-					arduino_io(2) <= not arduino_io(2);
-					buzzer_counter <= 0;
-				else
-					buzzer_counter <= buzzer_counter + 1;
-				end if;
-			else
-				arduino_io(2) <= '0';
-			end if;
-
-			-- game state machine
-			--case state is
-
-				-- when RNG =>
-				-- 	next_piece <= PIECE_A;
-				-- 	-- [TODO]: random piece generation
-				-- 	active_board(0,5) <= next_piece; -- test placement
-				-- 	current_row <= 0;
-				-- 	current_col <= 5
-				-- 	state <= FALL;
-				-- 	-- piece falling
-				-- 	-- end if;
-				-- 	state <= FALL;
-				-- when FALL =>
-				-- 	-- move piece down the board
-				-- 	--[TODO] implement piece falling logic
-				-- 	if current_board(current_row + 1, current_col) != EMPTY then
-				-- 		--[TODO] place piece on board
-				-- 		state <= CHECK;
-				-- 	end if;
-				-- when ANIM =>
-				-- 	-- play animation of piece falling
-				-- 	state <= FALL;
-				-- when CHECK =>
-				-- 	-- check for color matches
-				-- 	--if matches found then
-				-- 	state <= CLEAR;
-				-- 	--else
-				-- 	--check for game over
-				-- 	--	if game over then
-				-- 	--		state <= LOSE;
-				-- 	--	else
-				-- 	--		state <= RNG;
-				-- 	--	end if;
-				-- when CLEAR =>
-				-- 	-- clear matched pieces
-				-- 	state <= UPDATE;
-				-- when UPDATE =>
-				-- 	-- update board and score
-				-- 	state <= CHECK;
-
-				-- when LOSE =>
-				-- 	-- game over state
-				-- 	state <= RST;
-				-- when RST =>
-				-- 	state <= RNG;
-				-- when others =>
-				-- 	state <= RNG;
-			--end case;
+			
+			end process;
+			
+			-- writing game state
+			process (crnt_state, ready, anim_rate_count, anim_px_count, falling, 
+						place_top_row, clearing, active_board, current_row, current_col) 
+			begin
+				case (crnt_state) is
+						when RST => 
+							next_state <= RNG;
+						
+						when RNG => 
+							if ready = '1' then next_state <= ANIM;
+							else next_state <= RNG; end if;
+							
+						when ANIM => 
+							if anim_px_count >= 32 then next_state <= FALL;
+							else next_state <= ANIM_WAIT; end if;
+							
+						when ANIM_WAIT =>
+							if anim_rate_count >= MAX_FALL_COUNT then
+								next_state <= ANIM;
+								anim_px_count <= anim_px_count + 1;
+							else next_state <= ANIM_WAIT; end if;
+							
+						when FALL => 
+							next_state <= CHECK;
+							
+						when CHECK => 
+							if active_board(current_row + 1, current_col) = NONE then next_state <= ANIM;
+							else
+								active_board(current_row + 1, current_col) <= 
+							end if;
+							elsif clearing = '1' then next_state <= CLEAR;
+							elsif place_top_row = '1' then next_state <= LOSE;
+							else next_state <= RNG; end if;
+						
+						when CLEAR => 
+							next_state <= UPDATE;
+							
+						when UPDATE => 
+							next_state <= CHECK;
+							
+						when LOSE => 
+							if rst_db = '1' then next_state <= RST;
+							else next_state <= LOSE; end if;
+							
+						when others => next_state <= RST;
+					end case;
+			end process;
+			
 		end if;
 	end process;
 end architecture behavioral;

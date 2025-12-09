@@ -13,8 +13,8 @@ entity animations is
 		
 		do_drop: in std_logic;
 		piece: in piece;
-		drop_x: in integer range 0 to 9;
-		drop_y: in integer range 0 to 16;
+		drop_x: in integer range 0 to 639;
+		drop_y: in integer range 0 to 479;
 		
 		-- [OUTPUTS] --
 		px_en: out std_logic;
@@ -36,7 +36,7 @@ begin
 	process (clk) begin
 		if rising_edge(clk) and do_drop = '1' then
 			if px_x >= drop_x and px_x <= drop_x + 32 and 
-				px_y >= drop_y and px_y <= drop_y + 32
+				px_y >= drop_y - 32 and px_y <= drop_y
 			then
 				px_en <= '1';
 				px_out <= drop_color(piece);
