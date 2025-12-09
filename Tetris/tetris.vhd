@@ -32,7 +32,7 @@ end entity tetris;
 
 architecture behavioral of tetris is
 	-- [TYPES] --
-	type game_state is (RNG, FALL, CHECK, CLEAR, UPDATE, LOSE, RST);
+	type game_state is (RNG, FALL, ANIM, CHECK, CLEAR, UPDATE, LOSE, RST);
 	
 	-- [CONSTANTS] --
 	constant BG: std_logic_vector(11 downto 0) := "000000000000";
@@ -236,6 +236,9 @@ begin
 						--[TODO] place piece on board
 						state <= CHECK;
 					end if;
+				when ANIM =>
+					-- play animation of piece falling
+					state <= FALL;
 				when CHECK =>
 					-- check for color matches
 					--if matches found then
