@@ -30,8 +30,8 @@ architecture behavioral of blocks is
 		
 begin
 	-- [DIRECT BEHAVIOR] --
-	active_col <= (px_x - 176 + 32 - 1) / 32;
-	active_row <= (px_y - 16 + 32 - 1) / 32;
+	active_col <= ((px_x + 80 + 32 - 1) / 32) mod 9;
+	active_row <= ((px_y - 16 + 32 - 1) / 32) mod 15;
 	
 	-- [PROCESSES] --
 		process (clk) begin
