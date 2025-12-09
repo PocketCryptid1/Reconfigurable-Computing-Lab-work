@@ -39,6 +39,7 @@ architecture behavioral of tetris is
 	
 	-- [SIGNALS] --
 	-- The game board
+<<<<<<< HEAD
 	signal active_board: game_board := (
 		0 => (0 => PIECE_C, 1 => PIECE_D, 2 => PIECE_A, 3 => PIECE_D, 4 => PIECE_A, 5 => PIECE_D, 6 => PIECE_A, 7 => PIECE_D, 8 => PIECE_C),
 		1 => (PIECE_B, PIECE_A, PIECE_D, PIECE_A, PIECE_D, PIECE_A, PIECE_D, PIECE_A, PIECE_B), 
@@ -63,6 +64,13 @@ architecture behavioral of tetris is
 	signal current_row : integer range 0 to 15 := 0;
 	signal current_col : integer range 0 to 9 := 0;
 
+=======
+	signal active_board: game_board := (others => (others => NONE));
+		
+	signal active_score: std_logic_vector(23 downto 0);
+	signal state: game_state := PAUSE;
+	
+>>>>>>> db9496e796b787d9a684cbc4a3145778bfc4a588
 	-- Signals that retain the current coordinate of the current pixel
 	signal px_x	: integer range 0 to 639;
 	signal px_y	: integer range 0 to 479;
