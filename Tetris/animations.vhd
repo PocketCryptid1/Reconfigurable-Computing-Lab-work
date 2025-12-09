@@ -33,6 +33,19 @@ begin
 	-- [DIRECT BEHAVIOR] --
 	
 	-- [PROCESSES] --
+	process (clk) begin
+		if rising_edge(clk) and do_drop = '1' then
+			if px_x >= drop_x and px_x <= drop_x + 32 and 
+				px_y >= drop_y and px_y <= drop_y + 32
+			then
+				px_en <= '1';
+				px_out <= drop_color(piece);
+			else
+				px_en <= '0'
+				px_out <= (others => '0');
+			end if;
+		end if;
+	end process;
 	
 end architecture behavioral;
 

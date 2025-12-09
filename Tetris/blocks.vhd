@@ -38,8 +38,23 @@ begin
 			if rising_edge(clk) then
 				if px_x > 176 and px_x < 464 and px_y >= 0 and px_y < 464
 				then
-					px_en <= '1';
-					px_out <= piece_color(active_board(active_row, active_col));
+					case (active_board(active_row, active_col)) is
+						when PIECE_A => 
+							px_en <= '1';
+							px_out <= piece_color(PIECE_A);
+						when PIECE_B => 
+							px_en <= '1';
+							px_out <= piece_color(PIECE_B);
+						when PIECE_C => 
+							px_en <= '1';
+							px_out <= piece_color(PIECE_C);
+						when PIECE_D => 
+							px_en <= '1';
+							px_out <= piece_color(PIECE_D);
+						when others =>
+							px_en <= '0';
+							px_out <= (others => '0');
+					end case;
 				else
 					px_en <= '0';
 					px_out <= (others => '0');
