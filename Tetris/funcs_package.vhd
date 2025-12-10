@@ -40,11 +40,11 @@ package body funcs is
 	function to_piece(p: piece) return piece is
 	begin
 		case (p) is
-			when DROP_A => PIECE_A;
-			when DROP_B => PIECE_B;
-			when DROP_C => PIECE_C;
-			when DROP_D => PIECE_D;
-			when others => p;
+			when DROP_A => return PIECE_A;
+			when DROP_B => return PIECE_B;
+			when DROP_C => return PIECE_C;
+			when DROP_D => return PIECE_D;
+			when others => return p;
 		end case;
 	end;
 end package body funcs;
