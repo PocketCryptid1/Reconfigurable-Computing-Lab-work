@@ -27,7 +27,7 @@ architecture behavioral of tetris is
 	
 	-- [CONSTANTS] --
 	constant BG: std_logic_vector(11 downto 0) := "000000000000";
-	constant MAX_FALL_COUNT: integer := 1666667;  -- ~30 frames per second (50MHz / 30fps)
+	constant MAX_FALL_COUNT: integer := 4000000;
 	constant BOARD_TOP: integer := 16;            -- Top edge of play area
 	constant BOARD_BOTTOM: integer := 464;        -- Bottom edge (16 + 14*32)
 	constant BOARD_LEFT: integer := 176;          -- Left edge of play area
@@ -412,38 +412,39 @@ begin
 				active_board(0, 4) <= active_piece;
 				
 			when MOVE_CHECK =>
-				-- Check for left/right button presses
+				-- Check for left/right button presses (edge detection)
+				-- Only process movement if we're not already processing a move
 				if left_db = '1' and left_prev = '0' then
-					-- Move left
+					-- Move left requested
 					if current_col > 0 and active_board(current_row, current_col - 1) = NONE then
-						desired_col <= current_col - 1;
-						move_made <= '1';
+						-- Clear old position
+						active_board(current_row, current_col) <= NONE;
+						-- Move to new position
+						active_board(current_row, current_col - 1) <= active_piece;
+						current_col <= current_col - 1;
+						
+						-- Play movement sound
+						sound_active <= '1';
+						sound_type <= 0;
+						sound_freq_counter <= 50000;  -- ~500Hz
+						sound_counter <= 0;
 					end if;
-				end if;
-				
-				if right_db = '1' and right_prev = '0' then
-					-- Move right
+				elsif right_db = '1' and right_prev = '0' then
+					-- Move right requested
 					if current_col < MAX_COLS - 1 and active_board(current_row, current_col + 1) = NONE then
-						desired_col <= current_col + 1;
-						move_made <= '1';
+						-- Clear old position
+						active_board(current_row, current_col) <= NONE;
+						-- Move to new position
+						active_board(current_row, current_col + 1) <= active_piece;
+						current_col <= current_col + 1;
+						
+						-- Play movement sound
+						sound_active <= '1';
+						sound_type <= 0;
+						sound_freq_counter <= 50000;  -- ~500Hz
+						sound_counter <= 0;
 					end if;
 				end if;
-				
-				-- Apply movement if desired column differs from current
-				if desired_col /= current_col then
-					-- Clear old position
-					active_board(current_row, current_col) <= NONE;
-					-- Move to new position
-					active_board(current_row, desired_col) <= active_piece;
-					current_col <= desired_col;
-					
-					-- Play movement sound
-					sound_active <= '1';
-					sound_type <= 0;
-					sound_freq_counter <= 50000;  -- ~500Hz
-					sound_counter <= 0;
-				end if;
-				move_made <= '0';
 					
 				when FALL => 
                 fall_counter <= fall_counter + 1;
@@ -468,70 +469,120 @@ begin
                     sound_counter <= 0;
                 end if;
 					
-				when CLEAR => 
-					-- Detect and mark rows for clearing
-					clear_rows <= (others => '0');
-					cubes_to_clear <= 0;
-					
-					-- Check for horizontal matches (3+ in a row)
-					for row in 0 to MAX_ROWS - 1 loop
-						for col in 0 to MAX_COLS - 3 loop
-							if active_board(row, col) /= NONE and
-							   active_board(row, col) = active_board(row, col + 1) and
-							   active_board(row, col) = active_board(row, col + 2) then
-								clear_rows(row) <= '1';
-							end if;
-						end loop;
-					end loop;
-					
-					-- Check for vertical matches (3+ in a column)
+			when CLEAR => 
+				-- Detect and mark blocks for clearing
+				clear_rows <= (others => '0');
+				cubes_to_clear <= 0;
+				
+				-- Check for horizontal matches (3+ in a row)
+				-- Mark ALL blocks in a matching sequence, not just the first
+				for row in 0 to MAX_ROWS - 1 loop
 					for col in 0 to MAX_COLS - 1 loop
-						for row in 0 to MAX_ROWS - 3 loop
-							if active_board(row, col) /= NONE and
-							   active_board(row, col) = active_board(row + 1, col) and
-							   active_board(row, col) = active_board(row + 2, col) then
-								clear_rows(row) <= '1';
-								clear_rows(row + 1) <= '1';
-								clear_rows(row + 2) <= '1';
+						if active_board(row, col) /= NONE then
+							-- Check if this block is part of a 3+ horizontal sequence
+							if col <= MAX_COLS - 3 then
+								-- Check sequence starting from this position
+								if active_board(row, col) = active_board(row, col + 1) and
+								   active_board(row, col) = active_board(row, col + 2) then
+									clear_rows(row) <= '1';
+								end if;
 							end if;
-						end loop;
+							
+							-- Also check if this block is part of a longer sequence
+							if col > 0 and col <= MAX_COLS - 2 then
+								-- This block is at position col, check if col-1, col, col+1 match
+								if active_board(row, col - 1) = active_board(row, col) and
+								   active_board(row, col) = active_board(row, col + 1) then
+									clear_rows(row) <= '1';
+								end if;
+							end if;
+							
+							-- Or if it's part of a sequence col-2, col-1, col
+							if col >= 2 then
+								if active_board(row, col - 2) = active_board(row, col - 1) and
+								   active_board(row, col - 1) = active_board(row, col) then
+									clear_rows(row) <= '1';
+								end if;
+							end if;
+						end if;
 					end loop;
+				end loop;
+				
+				-- Check for vertical matches (3+ in a column)
+				for col in 0 to MAX_COLS - 1 loop
+					for row in 0 to MAX_ROWS - 1 loop
+						if active_board(row, col) /= NONE then
+							-- Check if this block is part of a 3+ vertical sequence
+							if row <= MAX_ROWS - 3 then
+								-- Check sequence starting from this position
+								if active_board(row, col) = active_board(row + 1, col) and
+								   active_board(row, col) = active_board(row + 2, col) then
+									clear_rows(row) <= '1';
+									clear_rows(row + 1) <= '1';
+									clear_rows(row + 2) <= '1';
+								end if;
+							end if;
+							
+							-- Also check if this block is in the middle of a sequence
+							if row > 0 and row <= MAX_ROWS - 2 then
+								if active_board(row - 1, col) = active_board(row, col) and
+								   active_board(row, col) = active_board(row + 1, col) then
+									clear_rows(row - 1) <= '1';
+									clear_rows(row) <= '1';
+									clear_rows(row + 1) <= '1';
+								end if;
+							end if;
+							
+							-- Or if it's at the bottom of a sequence
+							if row >= 2 then
+								if active_board(row - 2, col) = active_board(row - 1, col) and
+								   active_board(row - 1, col) = active_board(row, col) then
+									clear_rows(row - 2) <= '1';
+									clear_rows(row - 1) <= '1';
+									clear_rows(row) <= '1';
+								end if;
+							end if;
+						end if;
+					end loop;
+				end loop;			when UPDATE => 
+				-- Clear marked rows and count cubes
+				cubes_to_clear <= 0;
+				for row in 0 to MAX_ROWS - 1 loop
+					if clear_rows(row) = '1' then
+						for col in 0 to MAX_COLS - 1 loop
+							if active_board(row, col) /= NONE then
+								cubes_to_clear <= cubes_to_clear + 1;
+								-- Update score immediately
+								active_score <= std_logic_vector(unsigned(active_score) + 1);
+							end if;
+							active_board(row, col) <= NONE;
+						end loop;
+					end if;
+				end loop;
+				
+				-- Play clear sound if any cubes cleared
+				if clear_rows /= (clear_rows'range => '0') then
+					sound_active <= '1';
+					sound_type <= 2;
+					sound_freq_counter <= 75000;
+					sound_counter <= 0;
+				end if;
 					
-				when UPDATE => 
-				 -- Clear marked rows and count cubes
-				 for row in 0 to MAX_ROWS - 1 loop
-					  if clear_rows(row) = '1' then
-							for col in 0 to MAX_COLS - 1 loop
-								 if active_board(row, col) /= NONE then
-									  cubes_to_clear <= cubes_to_clear + 1;
-									  -- Update score immediately
-									  active_score <= std_logic_vector(unsigned(active_score) + 1);
-								 end if;
-								 active_board(row, col) <= NONE;
-							end loop;
-					  end if;
-				 end loop;
-				 
-				 -- Play clear sound if any cubes cleared
-				 if clear_rows /= (clear_rows'range => '0') then
-					  sound_active <= '1';
-					  sound_type <= 2;
-					  sound_freq_counter <= 75000;
-					  sound_counter <= 0;
-				 end if;
-					
-				when APPLY_GRAVITY =>
-				 -- Apply gravity - move cubes down to fill gaps
-				 for row in MAX_ROWS - 2 downto 0 loop  -- Stop one row earlier
-					  for col in 0 to MAX_COLS - 1 loop
+			when APPLY_GRAVITY =>
+				-- Apply gravity - move cubes down to fill gaps
+				-- Do this multiple iterations to handle larger gaps
+				for iteration in 0 to 4 loop
+					for row in MAX_ROWS - 2 downto 0 loop
+						for col in 0 to MAX_COLS - 1 loop
 							if active_board(row, col) /= NONE and 
 								active_board(row + 1, col) = NONE then
-								 active_board(row + 1, col) <= active_board(row, col);
-								 active_board(row, col) <= NONE;
+								active_board(row + 1, col) <= active_board(row, col);
+								active_board(row, col) <= NONE;
 							end if;
-					  end loop;
-				 end loop;
-					clear_rows <= (others => '0');
+						end loop;
+					end loop;
+				end loop;
+				clear_rows <= (others => '0');
 					
 				when LOSE => 
 					do_drop_anim <= '0';
