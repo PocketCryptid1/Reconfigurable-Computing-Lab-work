@@ -23,6 +23,9 @@ architecture behavioral of blocks is
 	-- [TYPES] --
 	
 	-- [CONSTANTS] --
+	constant BOARD_LEFT: integer := 176;
+	constant BOARD_TOP: integer := 16;
+	constant PIECE_SIZE: integer := 32;
 	
 	-- [SIGNALS] --
 	signal active_col: integer range 0 to 8;
@@ -30,8 +33,9 @@ architecture behavioral of blocks is
 		
 begin
 	-- [DIRECT BEHAVIOR] --
-	active_col <= ((px_x + 80 + 32 - 1) / 32) mod 9;
-	active_row <= ((px_y - 16 + 32 - 1) / 32) mod 15;
+	-- Calculate which column and row the pixel belongs to
+	active_col <= (px_x - BOARD_LEFT) / PIECE_SIZE;
+	active_row <= (px_y - BOARD_TOP) / PIECE_SIZE;
 	
 	-- [PROCESSES] --
 		process (clk) begin
