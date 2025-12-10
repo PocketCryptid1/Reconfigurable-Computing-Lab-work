@@ -284,19 +284,19 @@ begin
 				next_state <= CHECK;
 				
 			when CHECK => 
-                -- LOGIC: Determine what state comes next
-                -- If we hit the bottom OR a block is below us
-                if (current_row >= MAX_ROWS - 1) or (active_board(current_row + 1, current_col) /= NONE) then
-                    -- We landed. Did we lose?
-                    if current_row <= LOSS_THRESHOLD then
-                        next_state <= LOSE;
-                    else
-                        next_state <= CLEAR;
-                    end if;
-                else
-                    -- We haven't landed yet, keep checking movement
-                    next_state <= MOVE_CHECK;
-                end if;
+				 -- First check loss condition (top of piece is too high)
+				 if current_row <= LOSS_THRESHOLD and 
+					 ((current_row >= MAX_ROWS - 1) or (active_board(current_row + 1, current_col) /= NONE)) then
+					  -- Piece has landed AND it's in the loss zone
+					  next_state <= LOSE;
+				 -- Then check if piece has landed
+				 elsif (current_row >= MAX_ROWS - 1) or (active_board(current_row + 1, current_col) /= NONE) then
+					  -- Piece landed normally
+					  next_state <= CLEAR;
+				 else
+					  -- Keep falling
+					  next_state <= MOVE_CHECK;
+				 end if;
 				
 			when CLEAR => 
 				-- Check if any rows have matches
@@ -423,7 +423,7 @@ begin
 				
 				if right_db = '1' and right_prev = '0' then
 					-- Move right
-					if current_col < MAX_COLS and active_board(current_row, current_col + 1) = NONE then
+					if current_col < MAX_COLS - 1 and active_board(current_row, current_col + 1) = NONE then
 						desired_col <= current_col + 1;
 						move_made <= '1';
 					end if;
@@ -486,7 +486,7 @@ begin
 					
 					-- Check for vertical matches (3+ in a column)
 					for col in 0 to MAX_COLS - 1 loop
-						for row in 0 to MAX_ROWS - 2 loop
+						for row in 0 to MAX_ROWS - 3 loop
 							if active_board(row, col) /= NONE and
 							   active_board(row, col) = active_board(row + 1, col) and
 							   active_board(row, col) = active_board(row + 2, col) then
@@ -498,41 +498,39 @@ begin
 					end loop;
 					
 				when UPDATE => 
-					-- Clear marked rows and count cubes
-					cubes_to_clear <= 0;
-					for row in 0 to MAX_ROWS - 1 loop
-						if clear_rows(row) = '1' then
+				 -- Clear marked rows and count cubes
+				 for row in 0 to MAX_ROWS - 1 loop
+					  if clear_rows(row) = '1' then
 							for col in 0 to MAX_COLS - 1 loop
-								if active_board(row, col) /= NONE then
-									cubes_to_clear <= cubes_to_clear + 1;
-								end if;
-								active_board(row, col) <= NONE;
+								 if active_board(row, col) /= NONE then
+									  cubes_to_clear <= cubes_to_clear + 1;
+									  -- Update score immediately
+									  active_score <= std_logic_vector(unsigned(active_score) + 1);
+								 end if;
+								 active_board(row, col) <= NONE;
 							end loop;
-						end if;
-					end loop;
-					
-					-- Update score
-					if cubes_to_clear > 0 then
-						active_score <= std_logic_vector(unsigned(active_score) + to_unsigned(cubes_to_clear, 24));
-						-- Play clear sound
-						sound_active <= '1';
-						sound_type <= 2;
-						sound_freq_counter <= 75000;  -- ~333Hz
-						sound_counter <= 0;
-					end if;
+					  end if;
+				 end loop;
+				 
+				 -- Play clear sound if any cubes cleared
+				 if clear_rows /= (clear_rows'range => '0') then
+					  sound_active <= '1';
+					  sound_type <= 2;
+					  sound_freq_counter <= 75000;
+					  sound_counter <= 0;
+				 end if;
 					
 				when APPLY_GRAVITY =>
-					-- Apply gravity - move cubes down to fill gaps
-					for row in MAX_ROWS - 1 downto 0 loop
-						for col in 0 to MAX_COLS - 1 loop
+				 -- Apply gravity - move cubes down to fill gaps
+				 for row in MAX_ROWS - 2 downto 0 loop  -- Stop one row earlier
+					  for col in 0 to MAX_COLS - 1 loop
 							if active_board(row, col) /= NONE and 
-							   active_board(row + 1, col) = NONE and 
-							   row < MAX_ROWS then
-								active_board(row + 1, col) <= active_board(row, col);
-								active_board(row, col) <= NONE;
+								active_board(row + 1, col) = NONE then
+								 active_board(row + 1, col) <= active_board(row, col);
+								 active_board(row, col) <= NONE;
 							end if;
-						end loop;
-					end loop;
+					  end loop;
+				 end loop;
 					clear_rows <= (others => '0');
 					
 				when LOSE => 
