@@ -284,20 +284,19 @@ begin
 				next_state <= CHECK;
 				
 			when CHECK => 
-				-- Check if cube can fall further
-				if current_row >= MAX_ROWS then
-					-- Hit bottom
-					next_state <= CLEAR;
-				elsif active_board(current_row + 1, current_col) /= NONE then
-					-- Hit another cube
-					next_state <= CLEAR;
-				elsif current_row <= LOSS_THRESHOLD then
-					-- Loss condition met
-					next_state <= LOSE;
-				else
-					-- Can fall further
-					next_state <= MOVE_CHECK;
-				end if;
+                -- LOGIC: Determine what state comes next
+                -- If we hit the bottom OR a block is below us
+                if (current_row >= MAX_ROWS - 1) or (active_board(current_row + 1, current_col) /= NONE) then
+                    -- We landed. Did we lose?
+                    if current_row <= LOSS_THRESHOLD then
+                        next_state <= LOSE;
+                    else
+                        next_state <= CLEAR;
+                    end if;
+                else
+                    -- We haven't landed yet, keep checking movement
+                    next_state <= MOVE_CHECK;
+                end if;
 				
 			when CLEAR => 
 				-- Check if any rows have matches
@@ -447,32 +446,27 @@ begin
 				move_made <= '0';
 					
 				when FALL => 
-					-- Increment fall counter
-					fall_counter <= fall_counter + 1;
-					
-					if fall_counter >= MAX_FALL_COUNT then
-						-- Time to fall
-						if current_row < MAX_ROWS then
-							-- Clear old position and move piece down
-							active_board(current_row, current_col) <= NONE;
-							active_board(current_row + 1, current_col) <= active_piece;
-							current_row <= current_row + 1;
-						end if;
-						fall_counter <= 0;
-					end if;
-					
-				when CHECK => 
-					-- No actions, just state transition
-					
-					-- Check if piece landed (hit something)
-					if current_row >= MAX_ROWS or 
-					   active_board(current_row + 1, current_col) /= NONE then
-						-- Play land sound
-						sound_active <= '1';
-						sound_type <= 1;
-						sound_freq_counter <= 100000;  -- ~250Hz
-						sound_counter <= 0;
-					end if;
+                fall_counter <= fall_counter + 1;
+                
+                if fall_counter >= MAX_FALL_COUNT then
+                    -- Only move down if the spot below is empty and valid
+                    if (current_row < MAX_ROWS - 1) and (active_board(current_row + 1, current_col) = NONE) then
+                        active_board(current_row, current_col) <= NONE;
+                        active_board(current_row + 1, current_col) <= active_piece;
+                        current_row <= current_row + 1;
+                    end if;
+                    fall_counter <= 0;
+                end if;
+
+            when CHECK => 
+                -- LOGIC: Handle side effects (Sound) only. DO NOT assign next_state here.
+                -- Use the same condition as the Combinational process to detect landing
+                if (current_row >= MAX_ROWS - 1) or (active_board(current_row + 1, current_col) /= NONE) then
+                    sound_active <= '1';
+                    sound_type <= 1; -- Land sound
+                    sound_freq_counter <= 100000;
+                    sound_counter <= 0;
+                end if;
 					
 				when CLEAR => 
 					-- Detect and mark rows for clearing
@@ -480,8 +474,8 @@ begin
 					cubes_to_clear <= 0;
 					
 					-- Check for horizontal matches (3+ in a row)
-					for row in 0 to MAX_ROWS loop
-						for col in 0 to MAX_COLS - 2 loop
+					for row in 0 to MAX_ROWS - 1 loop
+						for col in 0 to MAX_COLS - 3 loop
 							if active_board(row, col) /= NONE and
 							   active_board(row, col) = active_board(row, col + 1) and
 							   active_board(row, col) = active_board(row, col + 2) then
@@ -491,7 +485,7 @@ begin
 					end loop;
 					
 					-- Check for vertical matches (3+ in a column)
-					for col in 0 to MAX_COLS loop
+					for col in 0 to MAX_COLS - 1 loop
 						for row in 0 to MAX_ROWS - 2 loop
 							if active_board(row, col) /= NONE and
 							   active_board(row, col) = active_board(row + 1, col) and
@@ -506,9 +500,9 @@ begin
 				when UPDATE => 
 					-- Clear marked rows and count cubes
 					cubes_to_clear <= 0;
-					for row in 0 to MAX_ROWS loop
+					for row in 0 to MAX_ROWS - 1 loop
 						if clear_rows(row) = '1' then
-							for col in 0 to MAX_COLS loop
+							for col in 0 to MAX_COLS - 1 loop
 								if active_board(row, col) /= NONE then
 									cubes_to_clear <= cubes_to_clear + 1;
 								end if;
@@ -530,7 +524,7 @@ begin
 				when APPLY_GRAVITY =>
 					-- Apply gravity - move cubes down to fill gaps
 					for row in MAX_ROWS - 1 downto 0 loop
-						for col in 0 to MAX_COLS loop
+						for col in 0 to MAX_COLS - 1 loop
 							if active_board(row, col) /= NONE and 
 							   active_board(row + 1, col) = NONE and 
 							   row < MAX_ROWS then

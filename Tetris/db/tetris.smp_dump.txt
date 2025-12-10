@@ -1632,15 +1632,14 @@ active_board[14][8].DROP_C 0 1 0 0 0 0 0 0 1
 active_board[14][8].DROP_D 1 0 0 0 0 0 0 0 1 
 
 State Machine - |tetris|crnt_state
-Name crnt_state.LOSE crnt_state.UPDATE crnt_state.CLEAR crnt_state.CHECK crnt_state.FALL crnt_state.ANIM_WAIT crnt_state.ANIM crnt_state.MOVE_CHECK crnt_state.SPAWN crnt_state.RNG crnt_state.RST 
-crnt_state.RST 0 0 0 0 0 0 0 0 0 0 0 
-crnt_state.RNG 0 0 0 0 0 0 0 0 0 1 1 
-crnt_state.SPAWN 0 0 0 0 0 0 0 0 1 0 1 
-crnt_state.MOVE_CHECK 0 0 0 0 0 0 0 1 0 0 1 
-crnt_state.ANIM 0 0 0 0 0 0 1 0 0 0 1 
-crnt_state.ANIM_WAIT 0 0 0 0 0 1 0 0 0 0 1 
-crnt_state.FALL 0 0 0 0 1 0 0 0 0 0 1 
-crnt_state.CHECK 0 0 0 1 0 0 0 0 0 0 1 
-crnt_state.CLEAR 0 0 1 0 0 0 0 0 0 0 1 
-crnt_state.UPDATE 0 1 0 0 0 0 0 0 0 0 1 
-crnt_state.LOSE 1 0 0 0 0 0 0 0 0 0 1 
+Name crnt_state.IDLE crnt_state.LOSE crnt_state.UPDATE crnt_state.APPLY_GRAVITY crnt_state.CLEAR crnt_state.CHECK crnt_state.FALL crnt_state.MOVE_CHECK crnt_state.SPAWN crnt_state.RST 
+crnt_state.RST 0 0 0 0 0 0 0 0 0 0 
+crnt_state.SPAWN 0 0 0 0 0 0 0 0 1 1 
+crnt_state.MOVE_CHECK 0 0 0 0 0 0 0 1 0 1 
+crnt_state.FALL 0 0 0 0 0 0 1 0 0 1 
+crnt_state.CHECK 0 0 0 0 0 1 0 0 0 1 
+crnt_state.CLEAR 0 0 0 0 1 0 0 0 0 1 
+crnt_state.APPLY_GRAVITY 0 0 0 1 0 0 0 0 0 1 
+crnt_state.UPDATE 0 0 1 0 0 0 0 0 0 1 
+crnt_state.LOSE 0 1 0 0 0 0 0 0 0 1 
+crnt_state.IDLE 1 0 0 0 0 0 0 0 0 1 
